@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html>
-<title>Games<title>
+<head>
+<title>Games</title>
+<script type="text/javascript" src="./dom/AnchorHTMLElement.js" async></script>
+<script type="text/javascript" src="./dom/GameCardElement.js" async></script>
+</head>
 <body>
 <script type="text/javascript">
-alert('yay');
+
+customElements.whenDefined('game-card').then(function(){
+	document.body.innerHTML = '';
+	for(var large of [false,true])
+	{
+		for(var rank of ['',GameCardElement.BLACK_JOKER,GameCardElement.RED_JOKER])
+			document.body.appendChild(GameCardElement.factory('',rank,large));
+		document.body.appendChild(document.createElement('br'));
+		for(var suit of GameCardElement.SUITS)
+		{
+			for(var rank of GameCardElement.DECK)
+				document.body.appendChild(GameCardElement.factory(suit,rank,large));
+			document.body.appendChild(document.createElement('br'));
+		}
+	}
+});
+
 </script>
-<body>
+
+Loading...
+
+</body>
 </html>
