@@ -5,24 +5,15 @@
 <link rel="icon" type="image/png" href="./favicon.png" />
 <script type="text/javascript" src="./dom/AnchorHTMLElement.js" async></script>
 <script type="text/javascript" src="./dom/GameCardElement.js" async></script>
+<script type="text/javascript" src="./dom/KlondikeSolitaireGameElement.js" async></script>
 </head>
 <body>
 <script type="text/javascript">
 
-customElements.whenDefined('game-card').then(function(){
+customElements.whenDefined('klondike-solitaire-game').then(function(){
 	document.body.innerHTML = '';
-	for(var large of [false,true])
-	{
-		for(var rank of ['',GameCardElement.BLACK_JOKER,GameCardElement.RED_JOKER])
-			document.body.appendChild(GameCardElement.factory('',rank,large));
-		document.body.appendChild(document.createElement('br'));
-		for(var suit of GameCardElement.SUITS)
-		{
-			for(var rank of GameCardElement.DECK)
-				document.body.appendChild(GameCardElement.factory(suit,rank,large));
-			document.body.appendChild(document.createElement('br'));
-		}
-	}
+	document.body.appendChild(KlondikeSolitaireGameElement.factory());
+	GameCardElement.debugDecks();
 });
 
 </script>

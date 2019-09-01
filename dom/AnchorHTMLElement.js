@@ -9,12 +9,13 @@ class AnchorHTMLElement extends HTMLElement
 		var anchor_html = new AnchorHTMLElement();
 		anchor_html.setAttribute('horizontal',horizontal);
 		anchor_html.setAttribute('vertical',vertical);
-		if(typeof(value) != 'value')
+		if(typeof(value) != 'undefined')
 			anchor_html.setAttribute('value',value);
 		if(typeof(className) != 'undefined')
 			anchor_html.className = className;
 		return anchor_html;
 	}
+	
 	constructor()
 	{
 		super();
@@ -29,7 +30,7 @@ class AnchorHTMLElement extends HTMLElement
 		style.textContent = `
 			:host([horizontal="left"]){--horizontal:left;}
 			:host([horizontal="center"]){--horizontal:center;}
-			:host([horizontal="right"]){--horizontal:right;}
+			:host([horizontal="right"]){--horizontal:right;direction:rtl;}
 			:host([vertical="top"]){--vertical:top;}
 			:host([vertical="middle"]){--vertical:middle;}
 			:host([vertical="bottom"]){--vertical:bottom;}
@@ -45,7 +46,9 @@ class AnchorHTMLElement extends HTMLElement
 	}
 	update()
 	{
-		this.content.innerHTML = this.getAttribute('value');
+		var value = this.getAttribute('value');
+		if(this.content.innerHTML != value)
+			this.content.innerHTML = value;
 	}
 }
 customElements.define('anchor-html',AnchorHTMLElement);
