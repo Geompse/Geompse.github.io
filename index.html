@@ -5,6 +5,7 @@
 <link rel="icon" type="image/png" href="./favicon.png" />
 <script type="text/javascript" src="./dom/AnchorHTMLElement.js" async></script>
 <script type="text/javascript" src="./dom/GameCardElement.js" async></script>
+<script type="text/javascript" src="./dom/GameCardPileElement.js" async></script>
 <script type="text/javascript" src="./dom/KlondikeSolitaireGameElement.js" async></script>
 </head>
 <body>
@@ -12,7 +13,10 @@
 
 customElements.whenDefined('klondike-solitaire-game').then(function(){
 	document.body.innerHTML = '';
-	document.body.appendChild(KlondikeSolitaireGameElement.factory());
+	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:1,width:'100px'}));
+	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:2,width:'100px'}));
+	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:3,width:'100px'}));
+	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:4,width:'100px'}));
 	GameCardElement.debugDecks();
 });
 

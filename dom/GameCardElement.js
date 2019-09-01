@@ -1,5 +1,10 @@
 class GameCardElement extends HTMLElement
 {
+	static SMALL_WIDTH = 50;
+	static SMALL_HEIGHT = 70;
+	static LARGE_WIDTH = 150;
+	static LARGE_HEIGHT = 350;
+	
 	static SUIT_SPADES = '\u2660';
 	static SUIT_CLUBS = '\u2663';
 	static SUIT_HEARTS = '\u2665';
@@ -87,7 +92,7 @@ class GameCardElement extends HTMLElement
 	
 	static get observedAttributes()
 	{
-		return ['suit','rank','large','empty'];
+		return ['suit','rank'];
 	}
 	static factory(suit,rank,large)
 	{
@@ -103,8 +108,7 @@ class GameCardElement extends HTMLElement
 		super();
 		var shadow = this.attachShadow({mode:'open'});
 
-		var wrapper = document.createElement('span');
-		wrapper.className = 'wrapper';
+		var wrapper = document.createElement('wrapper');
 		shadow.appendChild(wrapper);
 
 		var suit = this.getAttribute('suit');
@@ -117,15 +121,15 @@ class GameCardElement extends HTMLElement
 		
 		var style = document.createElement('style');
 		style.textContent = `
-			:host{display:inline-block;width:50px;height:70px;margin:1px;user-select:none;}
-			:host([large]){--centervaluefontsize:50px;--minivaluesdisplay:inline-block;display:inline-block;width:150px;height:350px;--cardborderradius:20px;}
+			:host{display:inline-block;width:${GameCardElement.SMALL_WIDTH}px;height:${GameCardElement.SMALL_HEIGHT}px;margin:1px;user-select:none;}
+			:host([large]){--centervaluefontsize:50px;--minivaluesdisplay:inline-block;display:inline-block;width:${GameCardElement.LARGE_WIDTH}px;height:${GameCardElement.LARGE_HEIGHT}px;--cardborderradius:20px;}
 			:host([covered]){--topvaluedisplay:inline-block;--centervaluedisplay:none;}
 			:host([rank]:not([suit])){--cardcolor:black;--cardbackground:#FEC;}
 			:host([suit="${GameCardElement.SUIT_SPADES}"],[suit="${GameCardElement.SUIT_CLUBS}"],[rank="${GameCardElement.BLACK_JOKER}"]){--cardcolor:black !important;--cardbackground:#EEE !important;}
 			:host([suit="${GameCardElement.SUIT_HEARTS}"],[suit="${GameCardElement.SUIT_DIAMONDS}"],[rank="${GameCardElement.RED_JOKER}"]){--cardcolor:red !important;--cardbackground:#FEE !important;}
 			:host([rank="${GameCardElement.RANK_EMPTY}"]){--cardcolor:black;--cardbackground:#CCC !important;}
 			:host([rank=""]){--cardcolor:black;--cardbackground:#CCF !important;}
-			.wrapper{box-sizing:border-box;display:inline-block;position:relative;width:100%;height:100%;color:var(--cardcolor,gray);background:var(--cardbackground,transparent);border-radius:var(--cardborderradius,5px);box-shadow:0px 0px 5px #000;}
+			wrapper{box-sizing:border-box;display:inline-block;position:relative;width:100%;height:100%;color:var(--cardcolor,gray);background:var(--cardbackground,transparent);border-radius:var(--cardborderradius,5px);box-shadow:0px 0px 5px #000;}
 			.value_top{display:var(--topvaluedisplay,none);position:absolute;top:0px;left:0px;width:100%;height:100%;font-size:var(--centervaluefontsize,initial);}
 			.value_center{display:var(--centervaluedisplay,inline-block);position:absolute;top:0px;left:0px;width:100%;height:100%;font-size:var(--centervaluefontsize,initial);}
 			.value_top_left{display:var(--minivaluesdisplay,none);position:absolute;top:5px;left:5px;width:25%;height:25%;}

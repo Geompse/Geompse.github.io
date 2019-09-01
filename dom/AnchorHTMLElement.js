@@ -2,7 +2,7 @@ class AnchorHTMLElement extends HTMLElement
 {
 	static get observedAttributes()
 	{
-		return ['value','horizontal','vertical'];
+		return ['value'];
 	}
 	static factory(horizontal,vertical,value,className)
 	{
@@ -20,12 +20,10 @@ class AnchorHTMLElement extends HTMLElement
 	{
 		super();
 		var shadow = this.attachShadow({mode:'open'});
-		this.wrapper = document.createElement('span');
-		this.wrapper.className = 'wrapper';
-		shadow.appendChild(this.wrapper);
-		this.content = document.createElement('span');
-		this.content.className = 'content';
-		this.wrapper.appendChild(this.content);
+		var wrapper = document.createElement('wrapper');
+		shadow.appendChild(wrapper);
+		var content = document.createElement('content');
+		wrapper.appendChild(content);
 		var style = document.createElement('style');
 		style.textContent = `
 			:host([horizontal="left"]){--horizontal:left;}
@@ -34,8 +32,8 @@ class AnchorHTMLElement extends HTMLElement
 			:host([vertical="top"]){--vertical:top;}
 			:host([vertical="middle"]){--vertical:middle;}
 			:host([vertical="bottom"]){--vertical:bottom;}
-			.wrapper{box-sizing:border-box;display:table;width:100%;height:100%;}
-			.content{display:table-cell;text-align:var(--horizontal,center);vertical-align:var(--vertical,middle);}
+			wrapper{box-sizing:border-box;display:table;width:100%;height:100%;}
+			content{display:table-cell;text-align:var(--horizontal,center);vertical-align:var(--vertical,middle);}
 		`;
 		shadow.appendChild(style);
 		this.update();
@@ -47,8 +45,9 @@ class AnchorHTMLElement extends HTMLElement
 	update()
 	{
 		var value = this.getAttribute('value');
-		if(this.content.innerHTML != value)
-			this.content.innerHTML = value;
+		var content = this.shadowRoot.querySelector('content');
+		if(content.innerHTML != value)
+			content.innerHTML = value;
 	}
 }
 customElements.define('anchor-html',AnchorHTMLElement);
