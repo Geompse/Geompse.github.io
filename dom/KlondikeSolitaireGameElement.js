@@ -13,14 +13,14 @@ class KlondikeSolitaireGameElement extends HTMLElement
 		var foundations = document.createElement('foundations');
 		foundations.toggleAttribute('active');
 		for(var f=0; f<4; f++)
-			foundations.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],events:pile_events}));
+			foundations.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[new GameCardElement(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],events:pile_events}));
 		shadow.appendChild(foundations);
 
 		var stock = document.createElement('stock');
 		for(var d=1; d<options.nbdraw; d++)
-			stock.appendChild(GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY));
-		stock.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],events:pile_events}));
-		stock.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,open:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_HIDDEN)]}));
+			stock.appendChild(new GameCardElement(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY));
+		stock.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[new GameCardElement(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],events:pile_events}));
+		stock.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,open:[new GameCardElement(GameCardElement.SUIT_NONE,GameCardElement.RANK_HIDDEN)]}));
 		shadow.appendChild(stock);
 
 		var piles = document.createElement('piles');
@@ -29,12 +29,12 @@ class KlondikeSolitaireGameElement extends HTMLElement
 			var pile_options = {display:GameCardPileElement.DISPLAY_VERTICAL_COVER,closed:[],open:[],events:pile_events};
 			for(var c=0; c<p; c++)
 			{
-				var card = GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_HIDDEN);
+				var card = new GameCardElement(GameCardElement.SUIT_NONE,GameCardElement.RANK_HIDDEN);
 				if(!card.hasAttribute('covered'))
 					card.toggleAttribute('covered');
 				pile_options.closed.push(card);
 			}
-			pile_options.open.push(GameCardElement.factory(this.piles[p][p][0],this.piles[p][p][1]));
+			pile_options.open.push(new GameCardElement(this.piles[p][p][0],this.piles[p][p][1]));
 			piles.appendChild(new GameCardPileElement(pile_options));
 		}
 		shadow.appendChild(piles);

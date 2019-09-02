@@ -171,7 +171,7 @@ class GameCardElement extends HTMLElement
 					for(var suit of definition[0])
 					{
 						for(var rank of definition[1])
-							document.body.appendChild(GameCardElement.factory(suit,rank,large));
+							document.body.appendChild(new GameCardElement(suit,rank,large));
 						document.body.appendChild(document.createElement('br'));
 					}
 				}
@@ -184,16 +184,7 @@ class GameCardElement extends HTMLElement
 	{
 		return ['suit','rank'];
 	}
-	static factory(suit,rank,large)
-	{
-		var game_card = new GameCardElement();
-		game_card.setValue(suit,rank,large);
-		if(large)
-			game_card.toggleAttribute('large');
-		return game_card;
-	}	
-	
-	constructor()
+	constructor(suit,rank,large)
 	{
 		super();
 		var shadow = this.attachShadow({mode:'open'});
@@ -201,13 +192,11 @@ class GameCardElement extends HTMLElement
 		var wrapper = document.createElement('wrapper');
 		shadow.appendChild(wrapper);
 
-		var suit = this.getAttribute('suit');
-		var rank = this.getAttribute('rank');
-		wrapper.appendChild(AnchorHTMLElement.factory('center','top',suit+rank,'value_top'));
-		wrapper.appendChild(AnchorHTMLElement.factory('center','middle',suit+rank,'value_center'));
+		wrapper.appendChild(new AnchorHTMLElement('center','top',undefined,'value_top'));
+		wrapper.appendChild(new AnchorHTMLElement('center','middle',undefined,'value_center'));
 		for(var top_bottom of ['top','bottom'])
 			for(var left_right of ['left','right'])
-				wrapper.appendChild(AnchorHTMLElement.factory(left_right,top_bottom,suit+rank,'value_'+top_bottom+'_'+left_right));
+				wrapper.appendChild(new AnchorHTMLElement(left_right,top_bottom,undefined,'value_'+top_bottom+'_'+left_right));
 		
 		var style = document.createElement('style');
 		style.textContent = `
@@ -233,6 +222,9 @@ class GameCardElement extends HTMLElement
 		`;
 		shadow.appendChild(style);
 
+		this.setValue(suit,rank,large);
+		if(large)
+			this.toggleAttribute('large');
 		this.update();
 	}
 	attributeChangedCallback(name, old_value, new_value)
@@ -251,8 +243,8 @@ class GameCardElement extends HTMLElement
 			newvalue = '';
 		var chs = this.shadowRoot.querySelectorAll('anchor-html');
 		for(var c=0; c<chs.length; c++)
-			if(chs[c].getAttribute('value') != newvalue)
-				chs[c].setAttribute('value',newvalue);
+			if(chs[c].innerHTML != newvalue)
+				chs[c].innerHTML = newvalue;
 	}
 	setValue(suit,rank)
 	{

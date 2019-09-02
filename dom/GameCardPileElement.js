@@ -8,10 +8,6 @@ class GameCardPileElement extends HTMLElement
 	{
 		return 'vertical-cover';
 	}
-	static get observedAttributes()
-	{
-		return [];
-	}
 	
 	constructor(options)
 	{
@@ -48,15 +44,6 @@ class GameCardPileElement extends HTMLElement
 			game-card{display:block;margin:-${GameCardElement.SMALL_HEIGHT*2/3}px auto;}
 		`;
 		shadow.appendChild(style);
-
-		this.update();
-	}
-	attributeChangedCallback(name, old_value, new_value)
-	{
-		this.update();
-	}
-	update()
-	{
 	}
 }
 customElements.whenDefined('game-card').then(function(){
