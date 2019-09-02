@@ -1,8 +1,13 @@
 class GameCardPileElement extends HTMLElement
 {
-	static DISPLAY_UNIQUE = 'unique';
-	static DISPLAY_VERTICAL_COVER = 'vertical-cover';
-	
+	static get DISPLAY_UNIQUE()
+	{
+		return 'unique';
+	}
+	static get DISPLAY_VERTICAL_COVER()
+	{
+		return 'vertical-cover';
+	}
 	static get observedAttributes()
 	{
 		return [];
@@ -27,7 +32,11 @@ class GameCardPileElement extends HTMLElement
 		shadow.appendChild(open_pile);
 		
 		if(options.draggable)
+		{
 			open_pile.draggable = true;
+			open_pile.ondragstart = options.draggable.ondragstart;
+			open_pile.ondragend = options.draggable.ondragend;
+		}
 
 		var style = document.createElement('style');
 		style.textContent = `

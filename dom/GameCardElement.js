@@ -1,38 +1,127 @@
 class GameCardElement extends HTMLElement
 {
-	static SMALL_WIDTH = 50;
-	static SMALL_HEIGHT = 70;
-	static LARGE_WIDTH = 150;
-	static LARGE_HEIGHT = 350;
+	static get SMALL_WIDTH()
+	{
+		return 50;
+	}
+	static get SMALL_HEIGHT()
+	{
+		return 70;
+	}
+	static get LARGE_WIDTH()
+	{
+		return 150;
+	}
+	static get LARGE_HEIGHT()
+	{
+		return 350;
+	}
 	
-	static SUIT_SPADES = '\u2660';
-	static SUIT_CLUBS = '\u2663';
-	static SUIT_HEARTS = '\u2665';
-	static SUIT_DIAMONDS = '\u2666';
-	static SUITS_NONE = [''];
-	static SUITS_ALPHA = [GameCardElement.SUIT_CLUBS,GameCardElement.SUIT_DIAMONDS,GameCardElement.SUIT_HEARTS,GameCardElement.SUIT_SPADES];
-	static SUITS_COLOR = [GameCardElement.SUIT_DIAMONDS,GameCardElement.SUIT_CLUBS,GameCardElement.SUIT_HEARTS,GameCardElement.SUIT_SPADES];
+	static get SUIT_SPADES()
+	{
+		return '\u2660';
+	}
+	static get SUIT_CLUBS()
+	{
+		return '\u2663';
+	}
+	static get SUIT_HEARTS()
+	{
+		return '\u2665';
+	}
+	static get SUIT_DIAMONDS()
+	{
+		return '\u2666';
+	}
+	static get SUITS_NONE()
+	{
+		return [''];
+	}
+	static get SUITS_ALPHA()
+	{
+		return [GameCardElement.SUIT_CLUBS,GameCardElement.SUIT_DIAMONDS,GameCardElement.SUIT_HEARTS,GameCardElement.SUIT_SPADES];
+	}
+	static get SUITS_COLOR()
+	{
+		return [GameCardElement.SUIT_DIAMONDS,GameCardElement.SUIT_CLUBS,GameCardElement.SUIT_HEARTS,GameCardElement.SUIT_SPADES];
+	}
 	
-	static FOOL = 'Excuse';
-	static BLACK_JOKER = '*';
-	static RED_JOKER = '#';
-	static RANK_EMPTY = '-';
-	static RANK_HIDDEN = '';
-	static RANKS_8 = ['7','8','9','10','J','Q','K','A'];
-	static RANKS_13 = ['1','2','3','4','5','6','7','8','9','10','J','Q','K'];
-	static RANKS_13_AS_FIRST = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-	static RANKS_13_AS_LAST = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
-	static RANKS_14 = ['1','2','3','4','5','6','7','8','9','10','J','C','Q','K'];
-	static RANKS_21_FOOL = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21',GameCardElement.FOOL];
+	static get FOOL()
+	{
+		return 'Excuse';
+	}
+	static get BLACK_JOKER()
+	{
+		return '*';
+	}
+	static get RED_JOKER()
+	{
+		return '#';
+	}
+	static get RANK_EMPTY()
+	{
+		return '-';
+	}
+	static get RANK_HIDDEN()
+	{
+		return '';
+	}
+	static get RANKS_8()
+	{
+		return ['7','8','9','10','J','Q','K','A'];
+	}
+	static get RANKS_13()
+	{
+		return ['1','2','3','4','5','6','7','8','9','10','J','Q','K'];
+	}
+	static get RANKS_13_AS_FIRST()
+	{
+		return ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+	}
+	static get RANKS_13_AS_LAST()
+	{
+		return ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+	}
+	static get RANKS_14()
+	{
+		return ['1','2','3','4','5','6','7','8','9','10','J','C','Q','K'];
+	}
+	static get RANKS_21_FOOL()
+	{
+		return ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21',GameCardElement.FOOL];
+	}
 	
-	static DECK_EMPTY = [[GameCardElement.SUITS_NONE,[GameCardElement.RANK_EMPTY]]];
-	static DECK_HIDDEN = [[GameCardElement.SUITS_NONE,[GameCardElement.RANK_HIDDEN]]];
-	static DECK_32 = [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_8]];
-	static DECK_52_ALPHA = [[GameCardElement.SUITS_ALPHA,GameCardElement.RANKS_13_AS_FIRST]];
-	static DECK_52_COLOR = [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_13_AS_FIRST]];
-	static DECK_54 = [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_13_AS_LAST],[GameCardElement.SUITS_NONE,[GameCardElement.BLACK_JOKER,GameCardElement.RED_JOKER]]];
-	static DECK_78 = [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_14],[GameCardElement.SUITS_NONE,GameCardElement.RANKS_21_FOOL]];
-	static DECKS = {
+	static get DECK_EMPTY()
+	{
+		return [[GameCardElement.SUITS_NONE,[GameCardElement.RANK_EMPTY]]];
+	}
+	static get DECK_HIDDEN()
+	{
+		return [[GameCardElement.SUITS_NONE,[GameCardElement.RANK_HIDDEN]]];
+	}
+	static get DECK_32()
+	{
+		return [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_8]];
+	}
+	static get DECK_52_ALPHA()
+	{
+		return [[GameCardElement.SUITS_ALPHA,GameCardElement.RANKS_13_AS_FIRST]];
+	}
+	static get DECK_52_COLOR()
+	{
+		return [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_13_AS_FIRST]];
+	}
+	static get DECK_54()
+	{
+		return [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_13_AS_LAST],[GameCardElement.SUITS_NONE,[GameCardElement.BLACK_JOKER,GameCardElement.RED_JOKER]]];
+	}
+	static get DECK_78()
+	{
+		return [[GameCardElement.SUITS_COLOR,GameCardElement.RANKS_14],[GameCardElement.SUITS_NONE,GameCardElement.RANKS_21_FOOL]];
+	}
+	static get DECKS()
+	{
+		return {
 		'Empty':GameCardElement.DECK_EMPTY,
 		'Hidden':GameCardElement.DECK_HIDDEN,
 		'Battle':GameCardElement.DECK_54,
@@ -41,6 +130,7 @@ class GameCardElement extends HTMLElement
 		'Tarot':GameCardElement.DECK_78,
 		'null':null
 	};
+	}
 	
 	static expand(deck)
 	{
@@ -125,8 +215,12 @@ class GameCardElement extends HTMLElement
 			:host([large]){--centervaluefontsize:50px;--minivaluesdisplay:inline-block;display:inline-block;width:${GameCardElement.LARGE_WIDTH}px;height:${GameCardElement.LARGE_HEIGHT}px;--cardborderradius:20px;}
 			:host([covered]){--topvaluedisplay:inline-block;--centervaluedisplay:none;}
 			:host([rank]:not([suit])){--cardcolor:black;--cardbackground:#FEC;}
-			:host([suit="${GameCardElement.SUIT_SPADES}"],[suit="${GameCardElement.SUIT_CLUBS}"],[rank="${GameCardElement.BLACK_JOKER}"]){--cardcolor:black !important;--cardbackground:#EEE !important;}
-			:host([suit="${GameCardElement.SUIT_HEARTS}"],[suit="${GameCardElement.SUIT_DIAMONDS}"],[rank="${GameCardElement.RED_JOKER}"]){--cardcolor:red !important;--cardbackground:#FEE !important;}
+			:host([suit="${GameCardElement.SUIT_SPADES}"]){--cardcolor:black !important;--cardbackground:#EEE !important;}
+			:host([suit="${GameCardElement.SUIT_CLUBS}"]){--cardcolor:black !important;--cardbackground:#EEE !important;}
+			:host([rank="${GameCardElement.BLACK_JOKER}"]){--cardcolor:black !important;--cardbackground:#EEE !important;}
+			:host([suit="${GameCardElement.SUIT_HEARTS}"]){--cardcolor:red !important;--cardbackground:#FEE !important;}
+			:host([suit="${GameCardElement.SUIT_DIAMONDS}"]){--cardcolor:red !important;--cardbackground:#FEE !important;}
+			:host([rank="${GameCardElement.RED_JOKER}"]){--cardcolor:red !important;--cardbackground:#FEE !important;}
 			:host([rank="${GameCardElement.RANK_EMPTY}"]){--cardcolor:black;--cardbackground:#CCC !important;}
 			:host([rank=""]){--cardcolor:black;--cardbackground:#CCF !important;}
 			wrapper{box-sizing:border-box;display:inline-block;position:relative;width:100%;height:100%;color:var(--cardcolor,gray);background:var(--cardbackground,transparent);border-radius:var(--cardborderradius,5px);box-shadow:0px 0px 5px #000;}
