@@ -31,11 +31,13 @@ class GameCardPileElement extends HTMLElement
 				open_pile.appendChild(child);
 		shadow.appendChild(open_pile);
 		
-		if(options.draggable)
+		if(options.events)
 		{
 			open_pile.draggable = true;
-			open_pile.ondragstart = options.draggable.ondragstart;
-			open_pile.ondragend = options.draggable.ondragend;
+			open_pile.ondragstart = options.events.ondragstart;
+			open_pile.ondragend = options.events.ondragend;
+			open_pile.ondragover = options.events.ondragover;
+			open_pile.ondrop = options.events.ondrop;
 		}
 
 		var style = document.createElement('style');

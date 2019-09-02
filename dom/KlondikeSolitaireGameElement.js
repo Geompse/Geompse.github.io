@@ -8,26 +8,25 @@ class KlondikeSolitaireGameElement extends HTMLElement
 		this.setup(options);
 		var shadow = this.attachShadow({mode:'closed'});
 
-		var draggable = {ondragstart:this.ondragstart.bind(this),ondragend:this.ondragend.bind(this)};
-		var droppable = {ondragover:this.ondragover.bind(this),ondrop:this.ondrop.bind(this)};
+		var pile_events = {ondragstart:this.ondragstart.bind(this),ondragend:this.ondragend.bind(this),ondragover:this.ondragover.bind(this),ondrop:this.ondrop.bind(this)};
 		
 		var foundations = document.createElement('foundations');
 		foundations.toggleAttribute('active');
 		for(var f=0; f<4; f++)
-			foundations.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],draggable:draggable}));
+			foundations.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],events:pile_events}));
 		shadow.appendChild(foundations);
 
 		var stock = document.createElement('stock');
 		for(var d=1; d<options.nbdraw; d++)
 			stock.appendChild(GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY));
-		stock.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],draggable:draggable}));
+		stock.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,closed:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_EMPTY)],events:pile_events}));
 		stock.appendChild(new GameCardPileElement({display:GameCardPileElement.DISPLAY_UNIQUE,open:[GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_HIDDEN)]}));
 		shadow.appendChild(stock);
 
 		var piles = document.createElement('piles');
 		for(var p=0; p<7; p++)
 		{
-			var pile_options = {display:GameCardPileElement.DISPLAY_VERTICAL_COVER,closed:[],open:[],draggable:draggable};
+			var pile_options = {display:GameCardPileElement.DISPLAY_VERTICAL_COVER,closed:[],open:[],events:pile_events};
 			for(var c=0; c<p; c++)
 			{
 				var card = GameCardElement.factory(GameCardElement.SUIT_NONE,GameCardElement.RANK_HIDDEN);
@@ -71,6 +70,8 @@ class KlondikeSolitaireGameElement extends HTMLElement
 	ondragstart(event)
 	{
 		console.log('ondragstart',event);
+		event.dataTransfer.setData('text','coucou');
+		event.effectAllowed = 'move';
 	}
 	ondragend(event)
 	{
@@ -79,10 +80,12 @@ class KlondikeSolitaireGameElement extends HTMLElement
 	ondragover(event)
 	{
 		console.log('ondragover',event);
+		event.preventDefault();
 	}
 	ondrop(event)
 	{
 		console.log('ondrop',event);
+		event.preventDefault();
 	}
 }
 customElements.whenDefined('game-card-pile').then(function(){
