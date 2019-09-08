@@ -4,6 +4,14 @@ class GameCardPileElement extends HTMLElement
 	{
 		return 'unique';
 	}
+	static get DISPLAY_HORIZONTAL_LEFT_COVER()
+	{
+		return 'horizontal-left-cover';
+	}
+	static get DISPLAY_HORIZONTAL_RIGHT_COVER()
+	{
+		return 'horizontal-right-cover';
+	}
 	static get DISPLAY_VERTICAL_COVER()
 	{
 		return 'vertical-cover';
@@ -14,6 +22,8 @@ class GameCardPileElement extends HTMLElement
 		super();
 		if(!options)
 			options = {};
+		if(options.display)
+			this.setAttribute('display',options.display);
 		var shadow = this.attachShadow({mode:'open'});
 
 		var closed_pile = document.createElement('pile-closed');
@@ -38,10 +48,13 @@ class GameCardPileElement extends HTMLElement
 
 		var style = document.createElement('style');
 		style.textContent = `
-			:host{display:inline-block;width:${GameCardElement.SMALL_WIDTH}px;margin:1px;user-select:none;padding-top:${GameCardElement.SMALL_HEIGHT*2/3}px;text-align:center;}
+			:host{display:inline-block;margin:1px;user-select:none;text-align:center;}
+			:host([display="horizontal-left-cover"]){--gamecarddisplay:inline-block;--gamecardmargin:0px 0px 0px -${GameCardElement.SMALL_WIDTH*2/3}px;padding:0px ${GameCardElement.SMALL_WIDTH*2/3}px 0px ${GameCardElement.SMALL_WIDTH*2/3}px;}
+			:host([display="horizontal-right-cover"]){--gamecarddisplay:inline-block;--gamecardmargin:0px 0px 0px -${GameCardElement.SMALL_WIDTH*2/3}px;padding:0px;}
+			:host([display="vertical-cover"]){--gamecardmargin:-${GameCardElement.SMALL_HEIGHT*2/3}px auto;padding-top:${GameCardElement.SMALL_HEIGHT*2/3}px;}
 			pile-open{display:block;}
 			pile-open game-card{cursor:pointer;}
-			game-card{display:block;margin:-${GameCardElement.SMALL_HEIGHT*2/3}px auto;}
+			game-card{display:var(--gamecarddisplay,block);margin:var(--gamecardmargin,0px auto);}
 		`;
 		shadow.appendChild(style);
 	}

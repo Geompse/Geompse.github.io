@@ -1,11 +1,30 @@
 class KlondikeSolitaireGameElement extends HTMLElement
 {
+	static setup(obj,options)
+	{
+		if(!options.nbdraw || isNaN(options.nbdraw) || options.nbdraw < 0)
+			options.nbdraw = 1;
+		if(!options.width)
+			options.width = '600px';
+		if(!options.height)
+			options.height = '500px';
+		var deck = GameCardElement.shuffle(GameCardElement.DECK_52_ALPHA);
+		obj.piles = [];
+		for(var p=0; p<7; p++)
+		{
+			obj.piles.push([]);
+			for(var c=0; c<=p; c++)
+				obj.piles[p].push(deck.pop());
+		}
+		obj.stock = deck;
+	}
+
 	constructor(options)
 	{
 		super();
 		if(!options)
 			options = {};
-		this.setup(options);
+		KlondikeSolitaireGameElement.setup(this,options);
 		var shadow = this.attachShadow({mode:'closed'});
 
 		var pile_events = {ondragstart:this.ondragstart.bind(this),ondragend:this.ondragend.bind(this),ondragover:this.ondragover.bind(this),ondrop:this.ondrop.bind(this)};
@@ -48,24 +67,6 @@ class KlondikeSolitaireGameElement extends HTMLElement
 			piles game-card-pile{display:table-cell;width:calc(100%/7);}
 		`;
 		shadow.appendChild(style);
-	}
-	setup(options)
-	{
-		if(!options.nbdraw || isNaN(options.nbdraw) || options.nbdraw < 0)
-			options.nbdraw = 1;
-		if(!options.width)
-			options.width = '600px';
-		if(!options.height)
-			options.height = '500px';
-		var deck = GameCardElement.shuffle(GameCardElement.DECK_52_ALPHA);
-		this.piles = [];
-		for(var p=0; p<7; p++)
-		{
-			this.piles.push([]);
-			for(var c=0; c<=p; c++)
-				this.piles[p].push(deck.pop());
-		}
-		this.stock = deck;
 	}
 	ondragstart(event)
 	{

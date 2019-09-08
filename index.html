@@ -7,16 +7,15 @@
 <script type="text/javascript" src="./dom/GameCardElement.js" async></script>
 <script type="text/javascript" src="./dom/GameCardPileElement.js" async></script>
 <script type="text/javascript" src="./dom/KlondikeSolitaireGameElement.js" async></script>
+<script type="text/javascript" src="./dom/SpiderSolitaireGameElement.js" async></script>
 </head>
 <body>
 <script type="text/javascript">
 
-customElements.whenDefined('klondike-solitaire-game').then(function(){
+Promise.all([customElements.whenDefined('klondike-solitaire-game'),customElements.whenDefined('spider-solitaire-game')]).then(function(){
 	document.body.innerHTML = '';
 	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:1,width:'100px'}));
-	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:2,width:'100px'}));
-	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:3,width:'100px'}));
-	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:4,width:'100px'}));
+	document.body.appendChild(new SpiderSolitaireGameElement({width:'100px'}));
 	GameCardElement.debugDecks();
 });
 
