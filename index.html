@@ -8,14 +8,16 @@
 <script type="text/javascript" src="./dom/GameCardPileElement.js" async></script>
 <script type="text/javascript" src="./dom/KlondikeSolitaireGameElement.js" async></script>
 <script type="text/javascript" src="./dom/SpiderSolitaireGameElement.js" async></script>
+<script type="text/javascript" src="./dom/BattleMultiGameElement.js" async></script>
 </head>
 <body>
 <script type="text/javascript">
 
-Promise.all([customElements.whenDefined('klondike-solitaire-game'),customElements.whenDefined('spider-solitaire-game')]).then(function(){
+Promise.all([customElements.whenDefined('klondike-solitaire-game'),customElements.whenDefined('spider-solitaire-game'),customElements.whenDefined('battle-multi-game')]).then(function(){
 	document.body.innerHTML = '';
 	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:1,width:'100px'}));
 	document.body.appendChild(new SpiderSolitaireGameElement({width:'100px'}));
+	document.body.appendChild(new BattleMultiGameElement({width:'100px'}));
 	GameCardElement.debugDecks();
 });
 
