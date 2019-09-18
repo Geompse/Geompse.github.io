@@ -4,10 +4,12 @@ class KlondikeSolitaireGameElement extends HTMLElement
 	{
 		if(!options.nbdraw || isNaN(options.nbdraw) || options.nbdraw < 0)
 			options.nbdraw = 1;
+		options.minWidth = (Math.max(7*(GameCardElement.SMALL_WIDTH+2),4*(GameCardElement.SMALL_WIDTH+2)+(options.nbdraw+1)*(GameCardElement.SMALL_WIDTH+2)+5))+'px';
 		if(!options.width)
-			options.width = '600px';
+			options.width = options.minWidth;
+		options.minHeight = (5+GameCardElement.SMALL_HEIGHT+2+18*GameCardElement.SMALL_HEIGHT*1/3+GameCardElement.SMALL_HEIGHT)+'px';
 		if(!options.height)
-			options.height = '500px';
+			options.height = options.minHeight;
 		var deck = GameCardElement.shuffle(GameCardElement.DECK_52_ALPHA);
 		obj.piles = [];
 		for(var p=0; p<7; p++)
@@ -60,10 +62,10 @@ class KlondikeSolitaireGameElement extends HTMLElement
 
 		var style = document.createElement('style');
 		style.textContent = `
-			:host{display:inline-block;min-width:${Math.max(7*GameCardElement.SMALL_WIDTH,4*(GameCardElement.SMALL_WIDTH+2)+(options.nbdraw+1)*(GameCardElement.SMALL_WIDTH+2))+15}px;min-height:500px;width:${options.width};height:${options.height};margin:5px;user-select:none;background:#484;position:relative;}
-			foundations{position:absolute;left:5px;top:5px;width:${4*(GameCardElement.SMALL_WIDTH+2)}px;height:${GameCardElement.SMALL_HEIGHT+2}px;text-align:left;}
-			stock{position:absolute;right:5px;top:5px;width:${(options.nbdraw+1)*(GameCardElement.SMALL_WIDTH+2)}px;height:${GameCardElement.SMALL_HEIGHT+2}px;text-align:right;}
-			piles{display:table;position:absolute;left:0px;width:100%;right:0px;bottom:0px;top:${GameCardElement.SMALL_HEIGHT+10}px;}
+			:host{display:inline-block;min-width:${options.minWidth};min-height:${options.minHeight};width:${options.width};height:${options.height};user-select:none;background:#484;position:relative;border:4px solid #484;}
+			foundations{position:absolute;left:0px;top:0px;width:${4*(GameCardElement.SMALL_WIDTH+2)}px;height:${GameCardElement.SMALL_HEIGHT+2}px;text-align:left;}
+			stock{position:absolute;right:0px;top:0px;width:${(options.nbdraw+1)*(GameCardElement.SMALL_WIDTH+2)}px;height:${GameCardElement.SMALL_HEIGHT+2}px;text-align:right;}
+			piles{display:table;position:absolute;left:0px;width:100%;right:0px;bottom:0px;top:${GameCardElement.SMALL_HEIGHT+5}px;}
 			piles game-card-pile{display:table-cell;width:calc(100%/7);}
 		`;
 		shadow.appendChild(style);

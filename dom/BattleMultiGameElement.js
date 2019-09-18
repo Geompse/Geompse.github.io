@@ -4,10 +4,12 @@ class BattleMultiGameElement extends HTMLElement
 	{
 		if(!options.nbdraw || isNaN(options.nbdraw) || options.nbdraw < 0)
 			options.nbdraw = 1;
+		options.minWidth = (4*GameCardElement.LARGE_WIDTH+30)+'px';
 		if(!options.width)
-			options.width = '600px';
+			options.width = options.minWidth;
+		options.minHeight = (GameCardElement.LARGE_HEIGHT+2)+'px';
 		if(!options.height)
-			options.height = '500px';
+			options.height = options.minHeight;
 		var deck = GameCardElement.shuffle([].concat(GameCardElement.DECK_52_ALPHA,GameCardElement.DECK_52_ALPHA));
 		obj.piles = [];
 		for(var p=0; p<10; p++)
@@ -47,8 +49,8 @@ class BattleMultiGameElement extends HTMLElement
 
 		var style = document.createElement('style');
 		style.textContent = `
-			:host{display:inline-block;min-width:${4*GameCardElement.LARGE_WIDTH+30}px;min-height:${GameCardElement.LARGE_HEIGHT}px;width:${options.width};height:${options.height};margin:5px;user-select:none;background:#484;position:relative;}
-			player1,player2{position:absolute;top:${(parseInt(options.height)-GameCardElement.LARGE_HEIGHT)/2}px;height:${GameCardElement.LARGE_HEIGHT}px;width:50%;white-space:nowrap;vertical-align:middle;}
+			:host{display:inline-block;min-width:${options.minWidth};min-height:${options.minHeight};width:${options.width};height:${options.height};user-select:none;background:#484;position:relative;border:4px solid #484;}
+			player1,player2{position:absolute;top:${(parseInt(options.height)-GameCardElement.LARGE_HEIGHT)/2-1}px;height:${GameCardElement.LARGE_HEIGHT}px;width:50%;white-space:nowrap;vertical-align:middle;}
 			player1{left:0px;text-align:left;}
 			player2{right:0px;text-align:right;direction:rtl;}
 			player1 game-card-pile,player2 game-card-pile{vertical-align:middle;}

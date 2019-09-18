@@ -11,19 +11,15 @@
 <script type="text/javascript" src="./dom/BattleMultiGameElement.js" async></script>
 </head>
 <body>
+<div id="loading">Loading...</div>
+<klondike-solitaire-game></klondike-solitaire-game>
+<spider-solitaire-game></spider-solitaire-game>
+<battle-multi-game></battle-multi-game>
 <script type="text/javascript">
-
-Promise.all([customElements.whenDefined('klondike-solitaire-game'),customElements.whenDefined('spider-solitaire-game'),customElements.whenDefined('battle-multi-game')]).then(function(){
-	document.body.innerHTML = '';
-	document.body.appendChild(new KlondikeSolitaireGameElement({nbdraw:1,width:'100px'}));
-	document.body.appendChild(new SpiderSolitaireGameElement({width:'100px'}));
-	document.body.appendChild(new BattleMultiGameElement({width:'100px'}));
-	GameCardElement.debugDecks();
+customElements.whenDefined('game-card').then(function(){
+	document.querySelector('#loading').remove();
+	//GameCardElement.debugDecks();
 });
-
 </script>
-
-Loading...
-
 </body>
 </html>
