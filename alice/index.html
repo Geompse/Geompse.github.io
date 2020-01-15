@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Alice</title>
+<link rel="icon" type="image/png" href="./favicon.png" />
+<style>
+orthographe{display:block;text-align:center;}
+output{display:block;}
+output[status="ok"]{color:#080;}
+output[status="fail"]{color:#F00;text-decoration:line-through;}
+output[status="correct"]{color:#800;}
+</style>
+</head>
+<body>
+<orthographe><input type="button" onclick="Alice.orthographe_speak(this);" value="&Eacute;couter" /> <input type="text" onkeypress="Alice.orthographe_key(event,this);" /><input type="button" onclick="Alice.orthographe_check(this);" value="Corriger" /><outputs></outputs></orthographe>
+<script>
+var Alice = {};
+Alice.speak = function(volume_pct,lang,text)
+{
+    if(typeof(Alice.voices) == 'undefined')
+    {
+        var voices = speechSynthesis.getVoices();
+        if(!voices.length)
+        {
+            //window.localStorage[key] = 0;
+            setTimeout(Alice.speak.bind(this,volume_pct,lang,text),50);
+            return;
+        }
+        Alice.voices = {};
+        for(var i=0; i<voices.length; i++)
+        {
+            var brand = voices[i].name.split(/[^a-z]/i)[0];
+            var spoken = voices[i].lang.split('-')[0];
+            Alice.voices[voices[i].lang] = voices[i];
+            Alice.voices[brand+'-'+voices[i].lang] = voices[i];
+            if(typeof(Alice.voices[brand+'-'+spoken]) == 'undefined')
+                Alice.voices[brand+'-'+spoken] = voices[i];
+            if(typeof(Alice.voices[spoken]) == 'undefined')
+                Alice.voices[spoken] = voices[i];
+        }
+    }
+    var speech = new SpeechSynthesisUtterance();
+    if(typeof(Alice.voices[lang]) == 'undefined')
+        speech.lang = lang;
+    else
+        speech.voice = Alice.voices[lang]
+            speech.text = text;
+    speech.volume = volume_pct;
+    speechSynthesis.speak(speech);
+};
+Alice.shuffle = function(array){
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var x = array[i];
+        array[i] = array[j];
+        array[j] = x;
+    }
+}
+Alice.orthographe_words = {
+	O6:['singe','tamtam','hippopotame','tuyau','éléphanteau','mot','forêt','orthographe','homme','corriger','auto','autonomie','autre','dinosaure','sauter','oiseau','chapeau','bateau','tableau','cheval','chevaux','hôpital','hôpitaux','animal','animaux','eau','eaux'],
+	Dictee:['cinq','soixante','treize','trente','huit','gorille','girafe','pigeon','gâteau','guitare','gentille','après','peut-être','des élèves','l\'école','la grand-mère','l\'année deux mille vingt','la fête'],
+	O5:['l\'été','un bébé','une f&e','un vélo','l\'école','un trésor','une année','du café','une dictée','le marché','la clé','écriture','ma mère','mon père','mes frères','la grand-mère','l\'après-midi','près de','un élève','les élèves','derrière','la tête','la fête','des bêtes','la fenêtre','peut-être','être','déjà','elle','est','après','très'],
+	O2:['gâteau','gorille','génie','girafe','orangeade','pigeon','guêpe','guitare'],
+	O1:['zéro','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','cent','onze','douze','treize','quatorze','quinze','seize','vingt','trente','quarante','soixante','mille'],
+	'null':[]
+};
+Alice.orthographe_next = function(){
+	if(!Alice.orthographe_currents || Alice.orthographe_currents.length == 0)
+	{
+		Alice.orthographe_currents = [];
+		for(var dict in Alice.orthographe_words)
+			for(var w=0; w<Alice.orthographe_words[dict].length; w++)
+				Alice.orthographe_currents.push(Alice.orthographe_words[dict][w]);
+		for(var w=0; w<Alice.orthographe_words[Object.keys(Alice.orthographe_words)[0]].length; w++)
+			Alice.orthographe_currents.push(Alice.orthographe_words[Object.keys(Alice.orthographe_words)[0]][w]);
+		Alice.shuffle(Alice.orthographe_currents);
+	}
+	Alice.orthographe_current = Alice.orthographe_currents.pop();
+	Alice.orthographe_fail = 0;
+};
+Alice.orthographe_speak = function(button){
+	if(!Alice.orthographe_current)
+		Alice.orthographe_next();
+	Alice.speak(100,'fr-FR','Sais-tu écrire : '+Alice.orthographe_current+' ?');
+	var input = button.closest('orthographe').querySelector('input[type="text"]');
+	input.focus();
+};
+Alice.orthographe_key = function(event,input)
+{
+	if(event.keyCode == 13)
+		Alice.orthographe_check(input);		
+};
+Alice.orthographe_check = function(button){
+	var input = button.closest('orthographe').querySelector('input[type="text"]');
+	if(!Alice.orthographe_current)
+	{
+		input.value = '';
+		Alice.orthographe_speak(button);
+		return;
+	}
+	if(input.value == Alice.orthographe_current)
+	{
+		Alice.speak(100,'fr-FR','Bravo !');
+		Alice.orthographe_output(button,'ok',input.value);
+		input.value = '';
+		Alice.orthographe_next();
+		Alice.orthographe_speak(button);
+	}
+	else
+	{
+		Alice.orthographe_output(button,'fail',input.value);
+		Alice.orthographe_fail++;
+		if(Alice.orthographe_fail >= 3)
+		{
+			Alice.speak(100,'fr-FR','Perdu !');
+			Alice.orthographe_output(button,'correct',Alice.orthographe_current);
+			input.value = '';
+			Alice.orthographe_next();
+			Alice.orthographe_speak(button);
+		}
+		else
+			Alice.speak(100,'fr-FR','Non !');
+	}
+};
+Alice.orthographe_output = function(button,status,text){
+	var outputs = button.closest('orthographe').querySelector('outputs');
+	var node = document.createElement('output');
+	node.setAttribute('status',status);
+	node.textContent = text;
+	if(outputs.childNodes.length)
+		outputs.insertBefore(node,outputs.childNodes[0]);
+	else
+		outputs.appendChild(node);
+};
+</script>
+</body>
+</html>

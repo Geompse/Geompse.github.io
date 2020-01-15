@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Games</title>
+<link rel="icon" type="image/png" href="./favicon.png" />
+<script type="text/javascript" src="./dom/AnchorHTMLElement.js" async></script>
+<script type="text/javascript" src="./dom/GameCardElement.js" async></script>
+<script type="text/javascript" src="./dom/GameCardPileElement.js" async></script>
+<script type="text/javascript" src="./dom/KlondikeSolitaireGameElement.js" async></script>
+<script type="text/javascript" src="./dom/SpiderSolitaireGameElement.js" async></script>
+<script type="text/javascript" src="./dom/BattleMultiGameElement.js" async></script>
+</head>
+<body>
+<div id="loading">Loading...</div>
+<klondike-solitaire-game></klondike-solitaire-game>
+<spider-solitaire-game></spider-solitaire-game>
+<battle-multi-game></battle-multi-game>
+<script type="text/javascript">
+customElements.whenDefined('game-card').then(function(){
+	document.querySelector('#loading').remove();
+	//GameCardElement.debugDecks();
+});
+</script>
+</body>
+</html>
