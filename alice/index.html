@@ -4,7 +4,9 @@
 <title>Alice</title>
 <link rel="icon" type="image/png" href="./favicon.png" />
 <style>
-orthographe{display:block;text-align:center;}
+orthographe, genre_et_nombre{display:none;}
+html[alice-mode="orthographe"] menu [alice-code="orthographe"],html[alice-mode="genre_et_nombre"] menu [alice-code="genre_et_nombre"]{background:transparent;border-color:transparent;}
+html[alice-mode="orthographe"] orthographe, html[alice-mode="genre_et_nombre"] genre_et_nombre, menu, outputs{display:block;text-align:center;}
 output{display:block;}
 output[status="ok"]{color:#080;}
 output[status="fail"]{color:#F00;text-decoration:line-through;}
@@ -12,8 +14,16 @@ output[status="correct"]{color:#800;}
 </style>
 </head>
 <body>
-<orthographe><input type="button" onclick="Alice.orthographe_speak(this);" value="&Eacute;couter" /> <input type="text" onkeypress="Alice.orthographe_key(event,this);" /><input type="button" onclick="Alice.orthographe_check(this);" value="Corriger" /><outputs></outputs></orthographe>
+<menu>
+<input type="button" onclick="Alice.menu(this);" alice-code="orthographe" value="Orthographe" />
+<input type="button" onclick="Alice.menu(this);" alice-code="genre_et_nombre" value="Genre et nombre" />
+<br /><br />
+</menu>
+<orthographe><input type="button" onclick="Alice.orthographe_speak(this);" value="&Eacute;couter" /> <input type="text" onkeypress="Alice.orthographe_key(event,this);" /><input type="button" onclick="Alice.orthographe_check(this);" value="Corriger" /></orthographe>
+<genre_et_nombre><input type="button" onclick="Alice.genre_et_nombre_speak(this);" value="&Eacute;couter" /><br /><br /><input type="button" onclick="Alice.genre_et_nombre_check(this);" alice-code="MS" value="Masculin - Singulier" /> &nbsp; <input type="button" onclick="Alice.genre_et_nombre_check(this);" alice-code="MP" value="Masculin - Pluriel" /><br /><br /><input type="button" onclick="Alice.genre_et_nombre_check(this);" alice-code="FS" value="F&eacute;minin - Singulier" /> &nbsp; <input type="button" onclick="Alice.genre_et_nombre_check(this);" alice-code="FP" value="F&eacute;minin - Pluriel" /></genre_et_nombre>
+<outputs></outputs>
 <script>
+
 var Alice = {};
 Alice.speak = function(volume_pct,lang,text)
 {
@@ -48,7 +58,8 @@ Alice.speak = function(volume_pct,lang,text)
     speech.volume = volume_pct;
     speechSynthesis.speak(speech);
 };
-Alice.shuffle = function(array){
+Alice.shuffle = function(array)
+{
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var x = array[i];
@@ -56,15 +67,21 @@ Alice.shuffle = function(array){
         array[j] = x;
     }
 }
+Alice.menu = function(menuitem)
+{
+	document.documentElement.setAttribute('alice-mode',menuitem.getAttribute('alice-code'));
+}
+
 Alice.orthographe_words = {
-	O6:['singe','tamtam','hippopotame','tuyau','éléphanteau','mot','forêt','orthographe','homme','corriger','auto','autonomie','autre','dinosaure','sauter','oiseau','chapeau','bateau','tableau','cheval','chevaux','hôpital','hôpitaux','animal','animaux','eau','eaux'],
+	O6:['singe','tamtam','hippopotame','tuyau','éléphanteau','mot','forêt','orthographe','homme','corriger','auto','autonomie','autre','dinosaure','sauter','oiseau','chapeau','bateau','tableau','cheval','chevaux','hôpital','hôpitaux','animal','animaux','l\'eau','les eaux'],
 	Dictee:['cinq','soixante','treize','trente','huit','gorille','girafe','pigeon','gâteau','guitare','gentille','après','peut-être','des élèves','l\'école','la grand-mère','l\'année deux mille vingt','la fête'],
-	O5:['l\'été','un bébé','une f&e','un vélo','l\'école','un trésor','une année','du café','une dictée','le marché','la clé','écriture','ma mère','mon père','mes frères','la grand-mère','l\'après-midi','près de','un élève','les élèves','derrière','la tête','la fête','des bêtes','la fenêtre','peut-être','être','déjà','elle','est','après','très'],
+	O5:['l\'été','un bébé','une fée','un vélo','l\'école','un trésor','une année','du café','une dictée','le marché','la clé','écriture','ma mère','mon père','mes frères','la grand-mère','l\'après-midi','près de','un élève','les élèves','derrière','la tête','la fête','des bêtes','la fenêtre','peut-être','être','déjà','elle','est','après','très'],
 	O2:['gâteau','gorille','génie','girafe','orangeade','pigeon','guêpe','guitare'],
 	O1:['zéro','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','cent','onze','douze','treize','quatorze','quinze','seize','vingt','trente','quarante','soixante','mille'],
 	'null':[]
 };
-Alice.orthographe_next = function(){
+Alice.orthographe_next = function()
+{
 	if(!Alice.orthographe_currents || Alice.orthographe_currents.length == 0)
 	{
 		Alice.orthographe_currents = [];
@@ -78,7 +95,8 @@ Alice.orthographe_next = function(){
 	Alice.orthographe_current = Alice.orthographe_currents.pop();
 	Alice.orthographe_fail = 0;
 };
-Alice.orthographe_speak = function(button){
+Alice.orthographe_speak = function(button)
+{
 	if(!Alice.orthographe_current)
 		Alice.orthographe_next();
 	Alice.speak(100,'fr-FR','Sais-tu écrire : '+Alice.orthographe_current+' ?');
@@ -90,7 +108,8 @@ Alice.orthographe_key = function(event,input)
 	if(event.keyCode == 13)
 		Alice.orthographe_check(input);		
 };
-Alice.orthographe_check = function(button){
+Alice.orthographe_check = function(button)
+{
 	var input = button.closest('orthographe').querySelector('input[type="text"]');
 	if(!Alice.orthographe_current)
 	{
@@ -122,8 +141,9 @@ Alice.orthographe_check = function(button){
 			Alice.speak(100,'fr-FR','Non !');
 	}
 };
-Alice.orthographe_output = function(button,status,text){
-	var outputs = button.closest('orthographe').querySelector('outputs');
+Alice.orthographe_output = function(button,status,text)
+{
+	var outputs = document.querySelector('outputs');
 	var node = document.createElement('output');
 	node.setAttribute('status',status);
 	node.textContent = text;
@@ -132,6 +152,88 @@ Alice.orthographe_output = function(button,status,text){
 	else
 		outputs.appendChild(node);
 };
+
+Alice.genre_et_nombre_words = {
+	O6:['MScheval','MPchevaux','MShôpital','MPhôpitaux','MSanimal','MPanimaux','FSl\'eau','FPles eaux'],
+	Dictee:['MPdes élèves','FSl\'école','FSla grand-mère','FSl\'année deux mille vingt','FSla fête'],
+	O5:['MSl\'été','MSun bébé','FSune fée','MSun vélo','FSl\'école','MSun trésor','FSune année','MSdu café','FSune dictée','MSle marché','FSla clé','FSma mère','MSmon père','MPmes frères','FSla grand-mère','XSl\'après-midi','MSun élève','MPles élèves','FSla tête','FSla fête','FPdes bêtes','FSla fenêtre'],
+	O2:[],
+	O1:[],
+	'null':[]
+};
+Alice.genre_et_nombre_next = function()
+{
+	if(!Alice.genre_et_nombre_currents || Alice.genre_et_nombre_currents.length == 0)
+	{
+		Alice.genre_et_nombre_currents = [];
+		for(var dict in Alice.genre_et_nombre_words)
+			for(var w=0; w<Alice.genre_et_nombre_words[dict].length; w++)
+				Alice.genre_et_nombre_currents.push(Alice.genre_et_nombre_words[dict][w]);
+		for(var w=0; w<Alice.genre_et_nombre_words[Object.keys(Alice.genre_et_nombre_words)[0]].length; w++)
+			Alice.genre_et_nombre_currents.push(Alice.genre_et_nombre_words[Object.keys(Alice.genre_et_nombre_words)[0]][w]);
+		Alice.shuffle(Alice.genre_et_nombre_currents);
+	}
+	Alice.genre_et_nombre_current = Alice.genre_et_nombre_currents.pop();
+	Alice.genre_et_nombre_fail = 0;
+};
+Alice.genre_et_nombre_speak = function(button)
+{
+	if(!Alice.genre_et_nombre_current)
+		Alice.genre_et_nombre_next();
+	Alice.speak(100,'fr-FR','Quel est le genre et le nombre de : '+Alice.genre_et_nombre_current.substr(2)+' ?');
+	var input = button.closest('genre_et_nombre').querySelector('input[type="text"]');
+	button.focus();
+};
+Alice.genre_et_nombre_check = function(button)
+{
+	if(!Alice.genre_et_nombre_current)
+	{
+		Alice.genre_et_nombre_speak(button);
+		return;
+	}
+	var value = button.getAttribute('alice-code');
+	if(value.indexOf(Alice.genre_et_nombre_current.substr(0,2).replace(/X/g,'')) != -1)
+	{
+		Alice.speak(100,'fr-FR','Bravo !');
+		Alice.genre_et_nombre_output(button,'ok',Alice.genre_et_nombre_current.substr(2)+' : '+button.value);
+		Alice.genre_et_nombre_next();
+		Alice.genre_et_nombre_speak(button);
+	}
+	else
+	{
+		Alice.genre_et_nombre_output(button,'fail',Alice.genre_et_nombre_current.substr(2)+' : '+button.value);
+		Alice.genre_et_nombre_fail++;
+		if(Alice.genre_et_nombre_fail >= 3)
+		{
+			Alice.speak(100,'fr-FR','Perdu !');
+			var objs = button.closest('genre_et_nombre').querySelectorAll('[alice-code]');
+			var values = [];
+			for(var o=0; o<objs.length; o++)
+			{
+				var code = objs[o].getAttribute('alice-code');
+				if(code.indexOf(Alice.genre_et_nombre_current.substr(0,2).replace(/X/g,'')) != -1)
+					values.push(objs[o].value);
+			}
+			Alice.genre_et_nombre_output(button,'correct',Alice.genre_et_nombre_current.substr(2)+' : '+values.join('  -ou-  '));
+			Alice.genre_et_nombre_next();
+			Alice.genre_et_nombre_speak(button);
+		}
+		else
+			Alice.speak(100,'fr-FR','Non !');
+	}
+};
+Alice.genre_et_nombre_output = function(button,status,text)
+{
+	var outputs = document.querySelector('outputs');
+	var node = document.createElement('output');
+	node.setAttribute('status',status);
+	node.textContent = text;
+	if(outputs.childNodes.length)
+		outputs.insertBefore(node,outputs.childNodes[0]);
+	else
+		outputs.appendChild(node);
+};
+
 </script>
 </body>
 </html>
