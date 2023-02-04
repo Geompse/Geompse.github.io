@@ -74,6 +74,26 @@ parameters:
         - /git/geompse/games
         - /git/geompse/games/dom
         - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/games/dom
+        - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/games/dom
+        - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/games/dom
+        - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/haguenau
+        - /git/geompse
         - /git/netsoins-dev/dictionnaire
         - /git/netsoins-dev/dictionnaire/definition
         - /git/netsoins-dev/dictionnaire/record
