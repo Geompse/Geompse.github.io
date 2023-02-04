@@ -8,7 +8,8 @@ const colors_sol_marbre1 = {color:0xFFFFFF,emissive:0x000000};
 const colors_sol_marbre2 = {color:0xEEEEEE,emissive:0x111111};
 const colors_sol_parquet = {color:0xb38848,emissive:0xE5B255};
 const colors_sol_carrelage = {color:0xCCCCCC,emissive:0xCCCCCC};
-const colors_sol_tomette = {color:0x884444,emissive:0x884444};
+
+const tex_sol_tomette = UI.TexturePng('./sol_tomette.png');
 
 const RDC = function(maison)
 {
@@ -47,7 +48,7 @@ const RDC_Piece3 = function(etage)
 const RDC_Cuisine = function(etage)
 {
     const piece = UI.Piece(etage,'RCCU Cellier');
-    piece.color_sol = colors_sol_tomette;
+    piece.material = tex_sol_tomette;
     UI.Sol(piece,[
         [$rdc_cuisine_AB,0],
         [0,$rdc_cuisine_BC],

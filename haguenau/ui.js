@@ -87,6 +87,13 @@ const AddGeometryToGroup = function(type,group,geometry,transparent,noline)
     const colors = geometry['color']?geometry['color']:(group['color_'+type]?group['color_'+type]:(type=='mur'?colors_mur:(type=='plafond'?colors_plafond:colors_sol)));
     geometry.piece = group;
 
+    if(group.material && type == 'sol')
+    {
+        const meshBasicMaterial = group.material;
+        group.add(new THREE.Mesh(geometry,meshBasicMaterial));
+        return;
+    }
+
     if(!noline)
     {
         const lineMaterial = new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0.5});
@@ -480,6 +487,22 @@ class UI
     static RectangleGeometry(w,h,...holes)
     {
         return RectangleGeometry(w,h,...holes);
+    }
+
+    static TexturePng(src)
+    {
+        const img = new Image();
+        img.src = src;
+        const texture = new THREE.Texture(img);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        img.texture = texture;
+        img.onload = function()
+        {
+            this.texture.needsUpdate = true;
+        };
+
+        return new THREE.MeshBasicMaterial({color: 0xFFFFFF, map: texture, transparent: true, opacity:1 });
     }
 };
 export { UI };
