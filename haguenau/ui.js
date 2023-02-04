@@ -326,12 +326,6 @@ const initPieces = function(maison_murs_only,font)
             const z = 50;
             const w = document.body.clientWidth/z/2;
             const h = hmurs/2;
-            const camera = new THREE.OrthographicCamera(-w,w,h,-h,0.1,1000);
-
-            const renderer = new THREE.WebGLRenderer({antialias:true,canvas:canvas});
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(document.body.clientWidth,hmurs*z);
-            document.body.appendChild(renderer.domElement);
 
             const light1 = new THREE.PointLight(0xffffff,1,0);
             light1.position.set(0,200,0);
@@ -382,6 +376,13 @@ const initPieces = function(maison_murs_only,font)
             }
 
             scene.translateZ(5.00);
+
+            const renderer = new THREE.WebGLRenderer({antialias:true,canvas:canvas});
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(Math.max(document.body.clientWidth,(x+w)*z),hmurs*z);
+            document.body.appendChild(renderer.domElement);
+
+            const camera = new THREE.OrthographicCamera(-w,Math.max(w,x),h,-h,0.1,1000);
             camera.position.z = 20.000;
 
             renderer.render(scene,camera);
