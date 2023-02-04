@@ -149,7 +149,7 @@ const initDessus = function(maison_sols_only)
     canvas.style.display = 'inline-block';
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x444444);
+    scene.background = new THREE.Color(0x000000);
 
     const vh = document.body.clientHeight;
     const vw = document.body.clientWidth;
@@ -254,7 +254,7 @@ const init3D = function(maison_3d)
     canvas.style.display = 'inline-block';
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x444444);
+    scene.background = new THREE.Color(0x000000);
 
     const vh = document.body.clientHeight;
     const vw = document.body.clientWidth;
@@ -321,7 +321,7 @@ const initPieces = function(maison_murs_only,font)
             canvas.style.display = 'inline-block';
 
             const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x444444);
+            scene.background = new THREE.Color(0x000000);
 
             const z = 50;
             const w = document.body.clientWidth/z/2;
@@ -353,14 +353,14 @@ const initPieces = function(maison_murs_only,font)
                 bevelSegments:5
             });
             const materials = [
-                new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } ), // front
-                new THREE.MeshPhongMaterial( { color: 0xffffff } ) // side
+                new THREE.MeshPhongMaterial( { color: 0xccccff, emissive: 0x4444ff, flatShading: true } ), // front
+                new THREE.MeshPhongMaterial( { color: 0xffffff, emissive: 0x4444ff } ) // side
             ];
             if(!text.boundingBox)
                 text.computeBoundingBox();
             const textobj = new THREE.Mesh(text,materials);
             textobj.translateX(x);
-            textobj.translateY(-h+2*pmur);
+            textobj.translateY(-(text.boundingBox.max.y-text.boundingBox.min.y)/2);
             scene.add(textobj);
             x += text.boundingBox.max.x-text.boundingBox.min.x+pmur;
 
