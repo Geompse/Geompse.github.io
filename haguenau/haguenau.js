@@ -1,6 +1,6 @@
-import * as THREE from '/three.module.js';
-import { FontLoader } from '/FontLoader.js';
-import { TextGeometry } from '/TextGeometry.js';
+import * as THREE from './three.module.js';
+import { FontLoader } from './FontLoader.js';
+import { TextGeometry } from './TextGeometry.js';
 
 window.voir_plafond = false;
 window.voir_murs = false;
@@ -424,4 +424,4 @@ const loader_callback = function(font)
     initPieces(Haguenau(),font);
 };
 const loader = new FontLoader();
-loader.load('/droid_serif_bold.typeface.json',loader_callback);
+loader.load('./droid_serif_bold.typeface.json',loader_callback);
