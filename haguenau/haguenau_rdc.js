@@ -6,9 +6,9 @@ const mur_e40 = 0.400;
 
 const colors_sol_marbre1 = {color:0xFFFFFF,emissive:0x000000};
 const colors_sol_marbre2 = {color:0xEEEEEE,emissive:0x111111};
-const colors_sol_parquet = {color:0xb38848,emissive:0xE5B255};
 const colors_sol_carrelage = {color:0xCCCCCC,emissive:0xCCCCCC};
 
+const tex_sol_parquet = UI.TexturePng('./sol_parquet.png');
 const tex_sol_tomette = UI.TexturePng('./sol_tomette.png');
 
 const RDC = function(maison)
@@ -31,7 +31,7 @@ const RDC = function(maison)
 const RDC_Piece3 = function(etage)
 {
     const piece = UI.Piece(etage,'RCP3 Chambre d\'amis');
-    piece.color_sol = colors_sol_parquet;
+    piece.material = tex_sol_parquet;
     UI.Sol(piece,[
         [$rdc_piece3_AB,0],
         [0,$rdc_piece3_BC],
@@ -153,7 +153,7 @@ const RDC_SalleDEau2 = function(etage)
 const RDC_Piece1 = function(etage)
 {
     const piece = UI.Piece(etage,'RCP1 Chambre au pair');
-    piece.color_sol = colors_sol_parquet;
+    piece.material = tex_sol_parquet;
     UI.Sol(piece,[
         [$rdc_piece1_AB,0],
         [0,$rdc_piece1_BC],
@@ -170,7 +170,7 @@ const RDC_Piece1 = function(etage)
 const RDC_Piece2 = function(etage)
 {
     const piece = UI.Piece(etage,'RCP2 Bureau Viviane');
-    piece.color_sol = colors_sol_parquet;
+    piece.material = tex_sol_parquet;
     UI.Sol(piece,[
         [$rdc_piece2_AB,0],
         [0,$rdc_piece2_BC],

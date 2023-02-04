@@ -4,6 +4,8 @@ const mur_e10 = 0.100;
 const mur_e20 = 0.200;
 const mur_e40 = 0.400;
 
+const tex_sol_parquet = UI.TexturePng('./sol_parquet.png');
+
 const Etage1 = function(maison)
 {
     const etage = UI.Etage(maison);
@@ -24,12 +26,14 @@ const Etage1 = function(maison)
 const Etage1_Piece2 = function(etage)
 {
     const piece = UI.Piece(etage,'E1P2 Salle de jeux');
+    piece.material = tex_sol_parquet;
 };
 const Etage1_Chambre4 = function(etage)
 {
     const $etage1_chambre4_xh2 = $etage1_chambre4_xh-0.500;
 
     const piece = UI.Piece(etage,'E1C4 Chambre Alice');
+    piece.material = tex_sol_parquet;
     UI.Sol(piece,[
         [$etage1_chambre4_AB,0],
         [0,$etage1_chambre4_BC],
@@ -55,10 +59,12 @@ const Etage1_Chambre4 = function(etage)
 const Etage1_Degagement = function(etage)
 {
     const piece = UI.Piece(etage,'E1DGT D\xE9gagement');
+    piece.material = tex_sol_parquet;
 };
 const Etage1_Chambre1 = function(etage)
 {
     const piece = UI.Piece(etage,'E1C1 Bureau Germain');
+    piece.material = tex_sol_parquet;
     UI.Sol(piece,[
         [$etage1_chambre1_AB,0],
         [0,$etage1_chambre1_BC],
@@ -93,6 +99,7 @@ const Etage1_WC = function(etage)
 const Etage1_Chambre2 = function(etage)
 {
     const piece = UI.Piece(etage,'E1C2 Chambre parents');
+    piece.material = tex_sol_parquet;
     UI.Sol(piece,[
         [$etage1_chambre2_AB,0],
         [0,$etage1_chambre2_BC],
@@ -114,6 +121,7 @@ const Etage1_Chambre2 = function(etage)
 const Etage1_Piece1 = function(etage)
 {
     const piece = UI.Piece(etage,'E1P1 Dressing parents');
+    piece.material = tex_sol_parquet;
 };
 const Etage1_Buanderie = function(etage)
 {
@@ -122,6 +130,7 @@ const Etage1_Buanderie = function(etage)
 const Etage1_Chambre3 = function(etage)
 {
     const piece = UI.Piece(etage,'E1C3 Chambre Charles');
+    piece.material = tex_sol_parquet;
     UI.Sol(piece,[
         [$etage1_chambre3_AB,0],
         [0,$etage1_chambre3_BC],
