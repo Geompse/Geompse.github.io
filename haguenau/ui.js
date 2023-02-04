@@ -89,7 +89,8 @@ const AddGeometryToGroup = function(type,group,geometry,transparent,noline)
 
     if(group.image_sol && type == 'sol')
     {
-        const meshBasicMaterial = UI.TexturePng(group.image_sol);
+        const texture = TexturePng(group.image_sol);
+        const meshBasicMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF,map:texture,transparent:true,opacity:1});
         group.add(new THREE.Mesh(geometry,meshBasicMaterial));
         return;
     }
@@ -113,6 +114,20 @@ const AddMurToGroup = function(group,geometry)
 
     const meshMaterial = new THREE.MeshPhongMaterial({color:colors.color,emissive:colors.emissive,side:THREE.DoubleSide,flatShading:true});
     group.murs.add(new THREE.Mesh(geometry,meshMaterial));
+};
+const TexturePng = function(src)
+{
+    const img = new Image();
+    img.src = src;
+    const texture = new THREE.Texture(img);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    img.texture = texture;
+    img.onload = function()
+    {
+        this.texture.needsUpdate = true;
+    };
+    return texture;
 };
 
 const initDessus = function(maison_sols_only)
@@ -269,6 +284,10 @@ const init3D = function(maison_3d)
     camera.position.z = 20.000;
     
     renderer.render(scene,camera);
+    setTimeout(renderer.render.bind(renderer,scene,camera),100);
+    setTimeout(renderer.render.bind(renderer,scene,camera),1000);
+    setTimeout(renderer.render.bind(renderer,scene,camera),5000);
+    setTimeout(renderer.render.bind(renderer,scene,camera),10000);
 };
 const initPieces = function(maison_murs_only,font)
 {
@@ -487,22 +506,6 @@ class UI
     static RectangleGeometry(w,h,...holes)
     {
         return RectangleGeometry(w,h,...holes);
-    }
-
-    static TexturePng(src)
-    {
-        const img = new Image();
-        img.src = src;
-        const texture = new THREE.Texture(img);
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        img.texture = texture;
-        img.onload = function()
-        {
-            this.texture.needsUpdate = true;
-        };
-
-        return new THREE.MeshBasicMaterial({color: 0xFFFFFF, map: texture, transparent: true, opacity:1 });
     }
 };
 export { UI };

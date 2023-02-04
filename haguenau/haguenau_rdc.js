@@ -6,7 +6,7 @@ const mur_e40 = 0.400;
 
 const colors_sol_marbre1 = {color:0xFFFFFF,emissive:0x000000};
 const colors_sol_marbre2 = {color:0xEEEEEE,emissive:0x111111};
-const colors_sol_carrelage = {color:0xCCCCCC,emissive:0xCCCCCC};
+const colors_sol_carrelage = {color:0x000000,emissive:0xCCCCCC};
 
 const image_sol_parquet = './sol_parquet.png';
 const image_sol_tomette = './sol_tomette.png';
@@ -16,13 +16,16 @@ const RDC = function(maison)
     const etage = UI.Etage(maison);
     RDC_Piece3(etage);
     RDC_Cuisine(etage);
-    RDC_Degagement(etage);
+    RDC_Pallier(etage);
     RDC_Piece4C(etage);
     RDC_Piece4S(etage);
+    RDC_Couloir(etage);
     RDC_Piece5(etage);
+    RDC_DegagementHall(etage);
     RDC_SalleDEau2(etage);
     RDC_Piece1(etage);
     RDC_Piece2(etage);
+    RDC_Entree(etage);
     RDC_SalleDEau1(etage);
     RDC_WC(etage);
     etage.translateZ(mur_e20+$rdj_h+mur_e20);
@@ -60,13 +63,121 @@ const RDC_Cuisine = function(etage)
     piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20);
     piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20+$rdc_salledeau2_BC+mur_e20+$rdc_piece3_BC+$rdc_piece3_DE-$rdc_cuisine_FA);
 };
-const RDC_Degagement = function(etage)
+const RDC_Pallier = function(etage)
+{
+    const piece = UI.Piece(etage,'RCPA Pallier');
+    piece.color_sol = colors_sol_marbre1;
+
+    const $marche_y = $rdc_pallier_C_/7;
+    const $marche_z = $rdc_pallier_h/15;
+    const $nb_marche = 7;
+
+    UI.Sol(piece,[
+        [$rdc_pallier_AB/2,0],
+        [0,$marche_y],
+        [-$rdc_pallier_AB/2,0],
+        [0,-$marche_y],
+    ],-$marche_z,$rdc_pallier_AB/2,$rdc_pallier_BC);
+
+    UI.Sol(piece,[
+        [$rdc_pallier_AB,0],
+        [0,$rdc_pallier_BC],
+        [-$rdc_pallier_CD,0],
+        [0,-$rdc_pallier_DA],
+    ]);
+
+    for(let m=0; m<$nb_marche; m++)
+    {
+        UI.Sol(piece,[
+            [$rdc_pallier_AB/2,0],
+            [0,$marche_y],
+            [-$rdc_pallier_AB/2,0],
+            [0,-$marche_y],
+        ],$marche_z*(m+1),0,$rdc_pallier_BC+$marche_y*m);
+    }
+
+    UI.Sol(piece,[
+        [$rdc_pallier_AB,0],
+        [0,$rdc_pallier___],
+        [-$rdc_pallier_AB,0],
+        [0,-$rdc_pallier___],
+    ],$marche_z*($nb_marche+1),0,$rdc_pallier_BC+$marche_y*$nb_marche);
+
+    for(let m=0; m<$nb_marche-1; m++)
+    {
+        UI.Sol(piece,[
+            [$rdc_pallier_AB/2,0],
+            [0,$marche_y],
+            [-$rdc_pallier_AB/2,0],
+            [0,-$marche_y],
+        ],$marche_z*($nb_marche+m+1),$rdc_pallier_AB/2,$rdc_pallier_BC+$marche_y*($nb_marche-m-1));
+    }
+
+    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20);
+    piece.translateY(mur_e40+$rdc_piece1_BC+$rdc_piece1_DE+mur_e20+$rdc_degagement_hall_HI+mur_e40);
+};
+const RDC_Piece4C = function(etage)
+{
+    const piece = UI.Piece(etage,'RCP4C Cuisine');
+    piece.color_sol = colors_sol_marbre2;
+    UI.Sol(piece,[
+        [$rdc_piece4_piece5_EF,0],
+        [0,$rdc_piece4_piece5_DE],
+        [-$rdc_piece4_piece5_EF,0],
+        [0,-$rdc_piece4_piece5_DE],
+    ],0,0,0,$rdc_piece4_piece5_xh);
+    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20);
+    piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20+$rdc_salledeau2_BC+mur_e20+$rdc_piece3_BC+$rdc_piece3_DE-$rdc_piece4_piece5_DE);
+};
+const RDC_Piece4S = function(etage)
+{
+    const piece = UI.Piece(etage,'RCP4C Salle \xE0 manger');
+    piece.color_sol = colors_sol_marbre2;
+    UI.Sol(piece,[
+        [$rdc_piece4_piece5_AB+$rdc_piece4_piece5_GH,0],
+        [0,$rdc_piece4_piece5_DE],
+        [-$rdc_piece4_piece5_AB-$rdc_piece4_piece5_GH,0],
+        [0,-$rdc_piece4_piece5_DE],
+    ],0,0,0,$rdc_piece4_piece5_xh);
+    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20+$rdc_piece4_piece5_EF);
+    piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20+$rdc_salledeau2_BC+mur_e20+$rdc_piece3_BC+$rdc_piece3_DE-$rdc_piece4_piece5_DE);
+};
+const RDC_Couloir = function(etage)
+{
+    const piece = UI.Piece(etage,'RCCO Couloir');
+    piece.color_sol = colors_sol_marbre1;
+    UI.Sol(piece,[
+        [$rdc_couloir_AB,0],
+        [0,$rdc_couloir_BC],
+        [$rdc_couloir_CD,0],
+        [0,$rdc_couloir_DE],
+        [-$rdc_couloir_EF,0],
+        [0,$rdc_couloir_FG],
+        [-$rdc_couloir_GH,0],
+        [0,-$rdc_couloir_HA],
+    ],0,0,0,$rdc_couloir_xh);
+    piece.translateX(mur_e40+$rdc_salledeau2_AB+mur_e20);
+    piece.translateY(mur_e40+$rdc_piece1_HA+mur_e20);
+};
+const RDC_Piece5 = function(etage)
+{
+    const piece = UI.Piece(etage,'RCP5 S\xE9jour');
+    piece.color_sol = colors_sol_marbre2;
+    UI.Sol(piece,[
+        [$rdc_piece4_piece5_AB,0],
+        [0,$rdc_piece4_piece5_BC-$rdc_piece4_piece5_DE],
+        [-$rdc_piece4_piece5_CD+$rdc_piece4_piece5_EF,0],
+        [0,-$rdc_piece4_piece5_FG],
+        [$rdc_piece4_piece5_GH,0],
+        [0,-$rdc_piece4_piece5_HA],
+    ],0,0,0,$rdc_piece4_piece5_xh);
+    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20+$rdc_piece4_piece5_EF+$rdc_piece4_piece5_GH);
+    piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20+$rdc_salledeau2_BC+mur_e20+$rdc_piece3_BC+$rdc_piece3_DE-$rdc_piece4_piece5_BC);
+};
+const RDC_DegagementHall = function(etage)
 {
     const piece = UI.Piece(etage,'RCDGT D\xE9gagement');
     piece.color_sol = colors_sol_marbre1;
-    /* couloir */
-    /* pallier */
-    /* entree */
     UI.Sol(piece,[
         [$rdc_degagement_hall_AB,0],
         [0,$rdc_degagement_hall_BC],
@@ -95,47 +206,6 @@ const RDC_Degagement = function(etage)
     ]);
     piece.translateX(mur_e40+$rdc_salledeau2_AB+mur_e20+$rdc_piece1_AB+mur_e20+$rdc_salledeau1_AB+mur_e20+$rdc_wc_AB+mur_e20);
     piece.translateY(mur_e40+$rdc_entree_BC+$rdc_entree_CD+$rdc_entree_DE+mur_e20);
-};
-const RDC_Piece4C = function(etage)
-{
-    const piece = UI.Piece(etage,'RCP4C Cuisine');
-    piece.color_sol = colors_sol_marbre2;
-    UI.Sol(piece,[
-        [$rdc_piece4_piece5_EF,0],
-        [0,$rdc_piece4_piece5_DE],
-        [-$rdc_piece4_piece5_EF,0],
-        [0,-$rdc_piece4_piece5_DE],
-    ],0,0,0,$rdc_piece4_piece5_xh);
-    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20);
-    piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20+$rdc_salledeau2_BC+mur_e20+$rdc_piece3_BC+$rdc_piece3_DE-$rdc_piece4_piece5_DE);
-};
-const RDC_Piece4S = function(etage)
-{
-    const piece = UI.Piece(etage,'RCP4C Salle \xE0 manger');
-    piece.color_sol = colors_sol_marbre2;
-    UI.Sol(piece,[
-        [$rdc_piece4_piece5_AB+$rdc_piece4_piece5_GH,0],
-        [0,$rdc_piece4_piece5_DE],
-        [-$rdc_piece4_piece5_AB-$rdc_piece4_piece5_GH,0],
-        [0,-$rdc_piece4_piece5_DE],
-    ],0,0,0,$rdc_piece4_piece5_xh);
-    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20+$rdc_piece4_piece5_EF);
-    piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20+$rdc_salledeau2_BC+mur_e20+$rdc_piece3_BC+$rdc_piece3_DE-$rdc_piece4_piece5_DE);
-};
-const RDC_Piece5 = function(etage)
-{
-    const piece = UI.Piece(etage,'RCP5 S\xE9jour');
-    piece.color_sol = colors_sol_marbre2;
-    UI.Sol(piece,[
-        [$rdc_piece4_piece5_AB,0],
-        [0,$rdc_piece4_piece5_BC-$rdc_piece4_piece5_DE],
-        [-$rdc_piece4_piece5_CD+$rdc_piece4_piece5_EF,0],
-        [0,-$rdc_piece4_piece5_FG],
-        [$rdc_piece4_piece5_GH,0],
-        [0,-$rdc_piece4_piece5_HA],
-    ],0,0,0,$rdc_piece4_piece5_xh);
-    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20+$rdc_piece4_piece5_EF+$rdc_piece4_piece5_GH);
-    piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20+$rdc_salledeau2_BC+mur_e20+$rdc_piece3_BC+$rdc_piece3_DE-$rdc_piece4_piece5_BC);
 };
 const RDC_SalleDEau2 = function(etage)
 {
@@ -179,6 +249,60 @@ const RDC_Piece2 = function(etage)
     ],0,0,0,$rdc_piece2_xh);
     piece.translateX(mur_e40);
     piece.translateY(mur_e40);
+};
+const RDC_Entree = function(etage)
+{
+    const piece = UI.Piece(etage,'RCE Entr\xE9e');
+    piece.color_sol = colors_sol_marbre1;
+
+    UI.Sol(piece,[
+        [0.200+$rdc_entree_AB+0.200,0],
+        [0,1.200],
+        [-0.200-$rdc_entree_AB-0.200,0],
+        [0,-1.200],
+    ],-0.050-0.120-0.120-0.120-0.120,-0.200,-1.200-0.150);
+
+    UI.Sol(piece,[
+        [$rdc_entree_AB,0],
+        [0,$rdc_entree_BC],
+        [-$rdc_entree_AB,0],
+        [0,-$rdc_entree_HA],
+    ],-0.120-0.120-0.120-0.120);
+
+    UI.Sol(piece,[
+        [$rdc_entree_AB-0.400-0.400,0],
+        [0,0.200],
+        [-$rdc_entree_AB+0.400+0.400,0],
+        [0,-0.200],
+    ],-0.120-0.120-0.120,0.400,$rdc_entree_BC);
+    UI.Sol(piece,[
+        [$rdc_entree_AB-0.400-0.400,0],
+        [0,0.200],
+        [-$rdc_entree_AB+0.400+0.400,0],
+        [0,-0.200],
+    ],-0.120-0.120,0.400,$rdc_entree_BC+0.200);
+    UI.Sol(piece,[
+        [$rdc_entree_AB-0.400-0.400,0],
+        [0,0.200],
+        [-$rdc_entree_AB+0.400+0.400,0],
+        [0,-0.200],
+    ],-0.120,0.400,$rdc_entree_BC+0.200+0.200);
+
+    UI.Sol(piece,[
+        [0.400,0],
+        [0,0.600],
+        [$rdc_entree_AB-0.400-0.400,0],
+        [0,-0.600],
+        [0.400,0],
+        [0,$rdc_entree_CD],
+        [-$rdc_entree_DE,0],
+        [0,$rdc_entree_EF],
+        [-$rdc_entree_FG,0],
+        [0,-$rdc_entree_GH],
+    ],0,0,$rdc_entree_BC);
+
+    piece.translateX(mur_e40+$rdc_salledeau2_AB+mur_e20+$rdc_piece1_AB+mur_e20+$rdc_salledeau1_AB+mur_e20+$rdc_wc_AB+mur_e20);
+    piece.translateY(0);
 };
 const RDC_SalleDEau1 = function(etage)
 {
