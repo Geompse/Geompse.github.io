@@ -146,8 +146,8 @@ const initDessus = function(maison_sols_only)
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x444444);
 
-    const vh = 600;
-    const vw = document.body.clientWidth/2;
+    const vh = document.body.clientHeight;
+    const vw = document.body.clientWidth;
 
     const w = 20;
     const h = w/vw*vh;
@@ -252,8 +252,8 @@ const init3D = function(maison_3d)
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x444444);
 
-    const vh = 600;
-    const vw = document.body.clientWidth/2;
+    const vh = document.body.clientHeight;
+    const vw = document.body.clientWidth;
 
     const camera = new THREE.PerspectiveCamera(75,vw/vh,0.1,1000);
 
@@ -388,8 +388,8 @@ const initPieces = function(maison_murs_only,font)
 const pointer = new THREE.Vector2(-1000,-1000);
 const onPointerMove = function(event)
 {
-    const vh = 600;
-    const vw = document.body.clientWidth/2;
+    const vh = document.body.clientHeight;
+    const vw = document.body.clientWidth;
 
     const w = 20;
     const h = w/vw*vh;
@@ -409,6 +409,24 @@ const onPointerMove = function(event)
 }
 window.addEventListener('pointermove',onPointerMove);
 
+const node_vue = document.getElementById('vue');
+node_vue.value = localStorage.getItem('vue');
+const changeVue = function(event)
+{
+    localStorage.setItem('vue',node_vue.value);
+    document.location.reload();
+};
+node_vue.addEventListener('change',changeVue);
+
+const node_etage = document.getElementById('etage');
+node_etage.value = localStorage.getItem('etage');
+const changeEtage = function(event)
+{
+    localStorage.setItem('etage',node_etage.value);
+    document.location.reload();
+};
+node_etage.addEventListener('change',changeEtage);
+
 class UI
 {
     static run(maison_generator)
@@ -418,12 +436,22 @@ class UI
     }
     static loader_callback(maison_generator,font)
     {
-        UI.type = 'sols_only';
-        initDessus(maison_generator());
-        UI.type = '3d';
-        init3D(maison_generator());
-        UI.type = 'murs_only';
-//        initPieces(maison_generator(),font);
+        if(node_vue.value == 'sols')
+        {
+            UI.type = 'sols_only';
+            initDessus(maison_generator(node_etage));
+        }
+        else if(node_vue.value == 'murs')
+        {
+            UI.type = 'murs_only';
+            initPieces(maison_generator(node_etage),font);
+        }
+        else
+        {
+            node_vue.value = '3d';
+            UI.type = '3d';
+            init3D(maison_generator(node_etage));
+        }
     }
 
     static Maison()

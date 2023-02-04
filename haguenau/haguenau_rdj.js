@@ -11,6 +11,7 @@ const colors_sol_technique = {color:0x444444,emissive:0x444444};
 const RDJ = function(maison)
 {
     const etage = UI.Etage(maison);
+    RDJ_Terrasse(etage);
     RDJ_Piece2(etage);
     RDJ_Piece1(etage);
     RDJ_Pallier(etage);
@@ -27,6 +28,28 @@ const RDJ = function(maison)
     etage.translateZ(mur_e20);
 };
 
+const RDJ_Terrasse = function(etage)
+{
+    const piece = UI.Piece(etage,'SST Terrasse');
+
+    const $marche_x = 0.250;
+    const $marche_y = 0.800;
+    const $marche_z = 0.180;
+    const $nb_marche = 12;
+
+    for(let m=0; m<$nb_marche-1; m++)
+    {
+        UI.Sol(piece,[
+            [$marche_x,0],
+            [0,$marche_y],
+            [-$marche_x,0],
+            [0,-$marche_y],
+        ],$rdj_h-$marche_z*(m+2),0.600+$marche_x*(m+1),$rdc_terrasse_BC);
+    }
+
+    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20+$rdc_piece4_piece5_EF+$rdc_piece4_piece5_AB+$rdc_piece4_piece5_GH+mur_e40);
+    piece.translateY(mur_e40);
+};
 const RDJ_Piece2 = function(etage)
 {
     const piece = UI.Piece(etage,'SSP2 Cin\xE9ma');

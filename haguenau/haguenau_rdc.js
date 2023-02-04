@@ -14,6 +14,7 @@ const image_sol_tomette = './sol_tomette.png';
 const RDC = function(maison)
 {
     const etage = UI.Etage(maison);
+    RDC_Terrasse(etage);
     RDC_Piece3(etage);
     RDC_Cuisine(etage);
     RDC_Pallier(etage);
@@ -31,6 +32,38 @@ const RDC = function(maison)
     etage.translateZ(mur_e20+$rdj_h+mur_e20);
 };
 
+const RDC_Terrasse = function(etage)
+{
+    const piece = UI.Piece(etage,'RCT Terrasse');
+
+    const $marche_x = 0.250;
+    const $marche_y = 0.800;
+    const $marche_z = 0.120;
+
+    UI.Sol(piece,[
+        [$rdc_terrasse_AB,0],
+        [0,$rdc_terrasse_BC],
+        [-$rdc_terrasse_CD,0],
+        [0,-$rdc_terrasse_DA],
+    ]);
+
+    UI.Sol(piece,[
+        [0.600,0],
+        [0,$marche_y],
+        [-0.600,0],
+        [0,-$marche_y],
+    ],0,0,$rdc_terrasse_BC);
+
+    UI.Sol(piece,[
+        [$marche_x,0],
+        [0,$marche_y],
+        [-$marche_x,0],
+        [0,-$marche_y],
+    ],-$marche_z,0.600,$rdc_terrasse_BC);
+
+    piece.translateX(mur_e40+$rdc_piece3_AB+mur_e20+$rdc_cuisine_EF+mur_e20+$rdc_pallier_w+mur_e20+$rdc_piece4_piece5_EF+$rdc_piece4_piece5_AB+$rdc_piece4_piece5_GH+mur_e40);
+    piece.translateY(mur_e40);
+};
 const RDC_Piece3 = function(etage)
 {
     const piece = UI.Piece(etage,'RCP3 Chambre d\'amis');

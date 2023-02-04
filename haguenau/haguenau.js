@@ -4,16 +4,18 @@ import { RDC } from './haguenau_rdc.js';
 import { Etage1 } from './haguenau_etage1.js';
 import { Etage2 } from './haguenau_etage2.js';
 
-const Haguenau = function()
+const Haguenau = function(node_etage)
 {
     const maison = UI.Maison();
-    if(!document.location.hash || document.location.hash == '#SS' || document.location.hash == '#SOUSSOL' || document.location.hash == '#RJ' || document.location.hash == '#RDJ')
+    if(['','RDJ','RDC','E1','E2'].indexOf(node_etage.value) == -1)
+        node_etage.value = '';
+    if(node_etage.value == '' || node_etage.value == 'RDJ')
         RDJ(maison);
-    if(!document.location.hash || document.location.hash == '#RC' || document.location.hash == '#RDC')
+    if(node_etage.value == '' || node_etage.value == 'RDC')
         RDC(maison);
-    if(!document.location.hash || document.location.hash == '#E1' || document.location.hash == '#Etage1')
+    if(node_etage.value == '' || node_etage.value == 'E1')
         Etage1(maison);
-    if(!document.location.hash || document.location.hash == '#E2' || document.location.hash == '#Etage2' || document.location.hash == '#C' || document.location.hash == '#Combles')
+    if(node_etage.value == '' || node_etage.value == 'E2')
         Etage2(maison);
     /*if(rotation)
     {

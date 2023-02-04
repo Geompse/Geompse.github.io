@@ -46,8 +46,8 @@ $cour_Hh = -1.010; // releve laser
 /*
 $maison_AhToit = 5.160 // releve laser
 $maison_BhToit = 5.320 // releve laser
-$rdj_Bh_terasse = 2.420 // releve laser
-$rdj_Ch_terasse = 2.440 // releve laser
+$rdj_Bh_terrasse = 2.420 // releve laser
+$rdj_Ch_terrasse = 2.440 // releve laser
 $maison_Ch_toit = 5.540 // releve laser
 $maison_Dh_toit = 5.090 // releve laser
 
@@ -608,5 +608,11 @@ $etage2_combles_w = $etage2_combles_surface/$etage2_combles_l;
 //echo($etage2_combles_w,$etage2_combles_l);
 $etage2_combles_h = $etage2_h;
 $etage2_combles_xh = 2.760 // releve laser
-//$etage2_combles_w = 9.760 // releve laser
-//$etage2_combles_l = 6.070 // releve laser
+$etage2_combles_w = 9.760 // releve laser
+$etage2_combles_l = 6.070 // releve laser
+$etage2_combles_AB = 10.75 // estimation
+$etage2_combles_BC = 5.45 // estimation
+$etage2_combles_CD = 1.55 // estimation
+$etage2_combles_DE = $etage2_combles_w-5.45 // estimation
+$etage2_combles_EF = $etage2_combles_AB-$etage2_combles_CD // estimation
+$etage2_combles_FA = 9.760 // releve laser

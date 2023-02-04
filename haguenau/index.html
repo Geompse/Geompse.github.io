@@ -3,6 +3,20 @@
         <title>Haguenau</title>
     </head>
     <body style="margin:0px;padding:0px;overflow:scroll;">
+        <form style="position:fixed;bottom:0px;left:0px;right:0px;text-align:center;">
+            <select id="vue">
+                <option value="3d">3D</option>
+                <option value="sols">2D a&eacute;rienne</option>
+                <option value="murs">2D murs</option>
+            </select>
+            <select id="etage">
+                <option value="E2">&Eacute;tage 2 (combles)</option>
+                <option value="E1">&Eacute;tage 1</option>
+                <option value="RDC">Rez-de-chauss&eacute;</option>
+                <option value="RDJ">Rez-de-jardin</option>
+                <option value="">Tous les &eacute;tages</option>
+            </select>
+        </form>
         <script src="./haguenau_mesures.js"></script>
         <script src="./haguenau.js" type="module"></script>
     </body>
