@@ -297,6 +297,7 @@ $rdc_cuisine_FA = 4.090 // releve laser
 
 $rdc_piece4_piece5_surface1 = 44.850000;
 $rdc_piece4_piece5_surface2 = 30.640000;
+$rdc_piece4_piece5_xh = 2.980;
 $rdc_piece4_piece5_AB = 4.520 // releve laser
 $rdc_piece4_piece5_Ah = 2.970 // releve laser
 $rdc_piece4_piece5_BC = 11.190 // releve laser

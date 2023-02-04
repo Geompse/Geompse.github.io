@@ -5,6 +5,36 @@ import { TextGeometry } from './TextGeometry.js';
 window.voir_plafond = false;
 window.voir_murs = false;
 
+const displayLength = function(length)
+{
+    const length_round = Math.round(length*1000);
+    if(length_round < 10)
+        return '0,00'+length_round+'m';
+    if(length_round < 100)
+        return '0,0'+length_round+'m';
+    if(length_round < 1000)
+        return '0,'+length_round+'m';
+    const length_round_text = ''+length_round;
+    return length_round_text.substr(0,length_round_text.length-3)+','+length_round_text.substr(-3,3)+'m';
+};
+const displayArea = function(area)
+{
+    const area_round = Math.round(area*100);
+    if(area_round < 10)
+        return '0,0'+area_round+'m&sup2;';
+    if(area_round < 100)
+        return '0,'+area_round+'m&sup2;';
+    const area_round_text = ''+area_round;
+    return area_round_text.substr(0,area_round_text.length-2)+','+area_round_text.substr(-2,2)+'m&sup2;';
+};
+const displayAngle = function(angle)
+{
+    const angle_round = Math.round(angle*10);
+    if(angle_round < 10)
+        return '0,'+angle_round+'&deg;';
+    return (''+angle_round).substr(0,-1)+','+(''+angle_round).substr(-1,1)+'&deg;';
+};
+
 const SimpleRelativePathShape = function(...relativecoords)
 {
     const shape = new THREE.Shape();
@@ -153,15 +183,15 @@ const initDessus_animate = function(scene,camera,raycaster,renderer,span)
             if(angle == 180)
             {
                 w += distance;
-                ws.push(Math.round(distance*1000)/1000+'m');
+                ws.push(displayLength(distance));
             }
             else if(angle == 90)
             {
                 h += distance;
-                hs.push(Math.round(distance*1000)/1000+'m');
+                hs.push(displayLength(distance));
             }
             else if(angle != 0 && angle != 270 && angle != 360)
-                os.push(Math.round(distance*1000)/1000+'m@'+Math.round(angle*10)/10+'&deg;');
+                os.push(displayLength(distance)+'@'+displayAngle(angle));
             contour.push(curve.v1);
             contour.push(curve.v2);
         }
@@ -169,11 +199,11 @@ const initDessus_animate = function(scene,camera,raycaster,renderer,span)
         window.Z = intersects[i];
         let texte = [];
         texte.push(piece.nom);
-        texte.push('largeur : '+Math.round(w*1000)/1000+'m'+(ws.length!=1?' ('+ws.join(', ')+')':''));
-        texte.push('hauteur : '+Math.round(h*1000)/1000+'m'+(hs.length!=1?' ('+hs.join(', ')+')':''));
+        texte.push('largeur : '+displayLength(w)+(ws.length!=1?' ('+ws.join(' | ')+')':''));
+        texte.push('hauteur : '+displayLength(h)+(hs.length!=1?' ('+hs.join(' | ')+')':''));
         if(os.length)
-            texte.push('autres : ('+os.join(', ')+')');
-        texte.push('surface : '+Math.round(THREE.ShapeUtils.area(contour)*1000)/1000+'m&sup2;');
+            texte.push('autres : ('+os.join(' | ')+')');
+        texte.push('surface : '+displayArea(THREE.ShapeUtils.area(contour)));
         textes.push(texte.join(' ; '));
     }
     for(let c=0; c<initDessus_animated.length; c++)
