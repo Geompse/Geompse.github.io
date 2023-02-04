@@ -127,12 +127,16 @@ const TexturePng = function(src)
     img.onload = function()
     {
         this.texture.needsUpdate = true;
+        if(UI.animate)
+            requestAnimationFrame(UI.animate);
     };
     return texture;
 };
 
 const initDessus = function(maison_sols_only)
 {
+    window.addEventListener('pointermove',onPointerMove);
+
     const span = document.createElement('span');
     span.style.background = '#000';
     span.style.color = '#FFF';
@@ -180,7 +184,8 @@ const initDessus = function(maison_sols_only)
 
     const raycaster = new THREE.Raycaster();
 
-    requestAnimationFrame(initDessus_animate.bind(this,scene,camera,raycaster,renderer,span));
+    UI.animate = initDessus_animate.bind(this,scene,camera,raycaster,renderer,span);
+    requestAnimationFrame(UI.animate);
 };
 const initDessus_animated = [];
 const initDessus_animate = function(scene,camera,raycaster,renderer,span)
@@ -242,8 +247,6 @@ const initDessus_animate = function(scene,camera,raycaster,renderer,span)
 
     span.innerHTML = textes.join('<br />');
     renderer.render(scene,camera);
-
-    requestAnimationFrame(initDessus_animate.bind(this,scene,camera,raycaster,renderer,span));
 };
 const init3D = function(maison_3d)
 {
@@ -284,15 +287,10 @@ const init3D = function(maison_3d)
     scene.translateZ(5.00);
     camera.position.z = 20.000;
     
-    renderer.render(scene,camera);
+    UI.animate = renderer.render.bind(renderer,scene,camera);
 
     const controls = new ArcballControls(camera,renderer.domElement,scene);
-    controls.addEventListener('change',renderer.render.bind(renderer,scene,camera));
-
-    //setTimeout(renderer.render.bind(renderer,scene,camera),100);
-    //setTimeout(renderer.render.bind(renderer,scene,camera),1000);
-    //setTimeout(renderer.render.bind(renderer,scene,camera),5000);
-    //setTimeout(renderer.render.bind(renderer,scene,camera),10000);
+    controls.addEventListener('change',UI.animate);
 };
 const initPieces = function(maison_murs_only,font)
 {
@@ -411,8 +409,10 @@ const onPointerMove = function(event)
     }
     pointer.x = (x/vw)*2-1;
     pointer.y = -(y/vh)*2+1;
+
+    if(UI.animate)
+        requestAnimationFrame(UI.animate);
 }
-window.addEventListener('pointermove',onPointerMove);
 
 const node_vue = document.getElementById('vue');
 node_vue.value = localStorage.getItem('vue');
