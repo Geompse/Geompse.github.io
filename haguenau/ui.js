@@ -1,6 +1,7 @@
 import * as THREE from './three.module.js';
 import { FontLoader } from './FontLoader.js';
 import { TextGeometry } from './TextGeometry.js';
+import { ArcballControls } from './ArcballControls.js';
 
 window.voir_plafond = false;
 window.voir_murs = false;
@@ -284,10 +285,14 @@ const init3D = function(maison_3d)
     camera.position.z = 20.000;
     
     renderer.render(scene,camera);
-    setTimeout(renderer.render.bind(renderer,scene,camera),100);
-    setTimeout(renderer.render.bind(renderer,scene,camera),1000);
-    setTimeout(renderer.render.bind(renderer,scene,camera),5000);
-    setTimeout(renderer.render.bind(renderer,scene,camera),10000);
+
+    const controls = new ArcballControls(camera,renderer.domElement,scene);
+    controls.addEventListener('change',renderer.render.bind(renderer,scene,camera));
+
+    //setTimeout(renderer.render.bind(renderer,scene,camera),100);
+    //setTimeout(renderer.render.bind(renderer,scene,camera),1000);
+    //setTimeout(renderer.render.bind(renderer,scene,camera),5000);
+    //setTimeout(renderer.render.bind(renderer,scene,camera),10000);
 };
 const initPieces = function(maison_murs_only,font)
 {
