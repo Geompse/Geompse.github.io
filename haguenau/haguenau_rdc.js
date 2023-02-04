@@ -95,10 +95,30 @@ const RDC_Piece5 = function(etage)
 const RDC_SalleDEau2 = function(etage)
 {
     const piece = UI.Piece(etage,'RCSDE2 Salle d\'eau amis');
+    UI.Sol(piece,[
+        [$rdc_salledeau2_AB,0],
+        [0,$rdc_salledeau2_BC],
+        [-$rdc_salledeau2_CD,0],
+        [0,-$rdc_salledeau2_DA],
+    ],0,0,0,$rdc_salledeau2_xh);
+    piece.translateX(mur_e40);
+    piece.translateY(mur_e40+$rdc_piece2_BC+mur_e20);
 };
 const RDC_Piece1 = function(etage)
 {
     const piece = UI.Piece(etage,'RCP1 Chambre au pair');
+    UI.Sol(piece,[
+        [$rdc_piece1_AB,0],
+        [0,$rdc_piece1_BC],
+        [-$rdc_piece1_CD,0],
+        [0,$rdc_piece1_DE],
+        [-$rdc_piece1_EF,0],
+        [0,-$rdc_piece1_FG],
+        [-$rdc_piece1_GH,0],
+        [0,-$rdc_piece1_HA],
+    ],0,0,0,$rdc_piece1_xh);
+    piece.translateX(mur_e40+$rdc_salledeau2_AB+mur_e20);
+    piece.translateY(mur_e40);
 };
 const RDC_Piece2 = function(etage)
 {
@@ -115,10 +135,26 @@ const RDC_Piece2 = function(etage)
 const RDC_SalleDEau1 = function(etage)
 {
     const piece = UI.Piece(etage,'RCSDE1 Salle d\'eau au pair');
+    UI.Sol(piece,[
+        [$rdc_salledeau1_AB,0],
+        [0,$rdc_salledeau1_BC],
+        [-$rdc_salledeau1_CD,0],
+        [0,-$rdc_salledeau1_DA],
+    ],0,0,0,$rdc_salledeau1_xh);
+    piece.translateX(mur_e40+$rdc_salledeau2_AB+mur_e20+$rdc_piece1_AB+mur_e20);
+    piece.translateY(mur_e40);
 };
 const RDC_WC = function(etage)
 {
     const piece = UI.Piece(etage,'RCWC WC');
+    UI.Sol(piece,[
+        [$rdc_wc_AB,0],
+        [0,$rdc_wc_BC],
+        [-$rdc_wc_CD,0],
+        [0,-$rdc_wc_DA],
+    ],0,0,0,$rdc_wc_xh);
+    piece.translateX(mur_e40+$rdc_salledeau2_AB+mur_e20+$rdc_piece1_AB+mur_e20+$rdc_salledeau1_AB+mur_e20);
+    piece.translateY(mur_e40);
 };
 
 export { RDC };
