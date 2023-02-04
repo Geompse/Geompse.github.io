@@ -288,6 +288,7 @@ const init3D = function(maison_3d)
     camera.position.z = 20.000;
     
     UI.animate = renderer.render.bind(renderer,scene,camera);
+    requestAnimationFrame(UI.animate);
 
     const controls = new ArcballControls(camera,renderer.domElement,scene);
     controls.addEventListener('change',UI.animate);
