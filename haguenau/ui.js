@@ -87,9 +87,9 @@ const AddGeometryToGroup = function(type,group,geometry,transparent,noline)
     const colors = geometry['color']?geometry['color']:(group['color_'+type]?group['color_'+type]:(type=='mur'?colors_mur:(type=='plafond'?colors_plafond:colors_sol)));
     geometry.piece = group;
 
-    if(group.material && type == 'sol')
+    if(group.image_sol && type == 'sol')
     {
-        const meshBasicMaterial = group.material;
+        const meshBasicMaterial = UI.TexturePng(group.image_sol);
         group.add(new THREE.Mesh(geometry,meshBasicMaterial));
         return;
     }
