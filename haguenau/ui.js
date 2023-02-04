@@ -247,6 +247,7 @@ const initPieces = function(maison_murs_only,font)
                 hmurs = Math.max(hmurs,mur.geometry.boundingBox.max.y-mur.geometry.boundingBox.min.y);
             }
             wmurs -= pmur;
+            hmurs = Math.max(hmurs,1);
             hmurs += 2*pmur;
 
             const canvas = document.createElement('canvas');

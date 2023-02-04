@@ -5,7 +5,7 @@ $etage2_h = 2.760
 
 $haies = 1.150 // releve laser
 
-$voisins = [0,24200,0];
+$voisins = [0,24.200,0];
 
 $maison_L = 11.900 // releve laser
 $maison_W1 = 19.700 // releve laser
@@ -39,9 +39,9 @@ $cour_degresDG = 90-Math.asin(($cour_F_maison_C-$cour_E_maison_B)/$cour_EF);
 $cour_degresGJ = 180-Math.asin(($cour_I_maison_D-$cour_H_maison_C)/$cour_HI);
 $cour_degresJA = 270-Math.asin(($cour_L_maison_A-$cour_K_maison_D)/$cour_KL);
 $cour_AD = $cour_AB+$cour_BC+$cour_CD;
-$cour_Ch = -0820; // releve laser
+$cour_Ch = -0.820; // releve laser
 $cour_DG = 19.200 // releve laser
-$cour_Hh = -1010; // releve laser
+$cour_Hh = -1.010; // releve laser
 
 /*
 $maison_AhToit = 5.160 // releve laser
@@ -84,29 +84,29 @@ $chenil_sud_BC = 2.210 // releve laser
 $chenil_sud_CD = 0.830 // releve laser
 $chenil_sud_DE = 2.270 // releve laser
 $chenil_sud_EA = 0.920 // releve laser
-$chenil_sud_B_cour_D = 27300+$haies; // releve laser
+$chenil_sud_B_cour_D = 27.300+$haies; // releve laser
 
 $piscine_AB = 3.930 // releve laser
-$piscine_Ah = -1900; // releve laser
+$piscine_Ah = -1.900; // releve laser
 $piscine_BC = 7.870 // releve laser
 $piscine_Bh = $piscine_Ah; // releve laser
 $piscine_CD = 3.930 // releve laser
-$piscine_Ch = -1400; // releve laser
+$piscine_Ch = -1.400; // releve laser
 $piscine_DA = 7.870 // releve laser
 $piscine_Dh = $piscine_Ch; // releve laser
 $piscine_BmurW = 3.840 // releve laser
 $piscine_BhaieL = 4.870 // releve laser
 
 $jardin_surface = 754.000000;
-$jardin_AB = 6320+$haies; // releve laser
+$jardin_AB = 6.320+$haies; // releve laser
 $jardin_BC = 10.800 // releve laser
 $jardin_CD = 1.670 // releve laser
 $jardin_DE = 5.020 // releve laser
-$jardin_EF = 5630+$haies+24200-2000; // faux
-$jardin_FG = 25000-$haies+6320+$haies+10800+1670+3000; // faux
-$jardin_GH = 5630+$haies; // releve laser
-$jardin_HI = 25000-$haies; // releve laser
-$jardin_IJ = 5630+24200-2*$haies-2000; // faux
+$jardin_EF = 5.630+$haies+24.200-2.000; // faux
+$jardin_FG = 25.000-$haies+6.320+$haies+10.800+1.670+3.000; // faux
+$jardin_GH = 5.630+$haies; // releve laser
+$jardin_HI = 25.000-$haies; // releve laser
+$jardin_IJ = 5.630+24.200-2*$haies-2.000; // faux
 $jardin_JA = $haies; // releve laser
 $jardin_degresAD = 180+$cour_degresGJ;
 $jardin_degresDF = 90-1; // approx
@@ -114,8 +114,8 @@ $jardin_degresFG = 180+0; // approx
 $jardin_degresGH = 270+1; // approx
 $jardin_degresHI = 0-2; // approx
 $jardin_degresIA = 270+1; // approx
-// W : 19940 vs 20700
-// H : 35460 vs 29660
+// W : 19.940 vs 20.700
+// H : 35.460 vs 29.660
 
 $rdj_plancher_w = $maison_W2;
 $rdj_plancher_l = $maison_L;
@@ -160,10 +160,10 @@ $rdj_cave_IA = 1.090 // releve laser
 $rdj_garage_surface1 = 44.850000;
 $rdj_garage_surface2 = 30.640000;
 $rdj_garage_taille1 = 4.500 // delete
-$rdj_garage_w1 = 12.160 //$rdj_garage_surface1/$rdj_garage_taille1+2550; // delete
+$rdj_garage_w1 = 12.160 //$rdj_garage_surface1/$rdj_garage_taille1+2.550; // delete
 $rdj_garage_l1 = 4.910 //$rdj_garage_taille1; // delete
-$rdj_garage_taille2 = 10000-$rdj_garage_taille1; // delete
-$rdj_garage_w2 = 8.140 //$rdj_garage_surface2/$rdj_garage_taille2+900+2550; // delete
+$rdj_garage_taille2 = 10.000-$rdj_garage_taille1; // delete
+$rdj_garage_w2 = 8.140 //$rdj_garage_surface2/$rdj_garage_taille2+0.900+2.550; // delete
 $rdj_garage_l2 = 6.200 //$rdj_garage_taille2; // delete
 $rdj_garage_h = $rdj_h; // delete
 $rdj_garage_Ah = $rdj_h;
@@ -195,7 +195,7 @@ $rdj_garage_hAB_3 = 2.170 // releve laser
 $rdj_degagement_surface = 0;
 $rdj_degagement_xh = 2.210 // releve laser
 $rdj_degagement_ph = 2.280 // releve laser
-$rdj_degagement_AB = 4140+410; // releve laser /*TODO*/
+$rdj_degagement_AB = 4.140+0.410; // releve laser /*TODO*/
 $rdj_degagement_BC = 2.470 // releve laser
 $rdj_degagement_CD = 3.130 // releve laser
 $rdj_degagement_DE = 0.280 // releve laser
@@ -309,7 +309,7 @@ $rdc_piece4_piece5_EF = 4.090 // releve laser
 $rdc_piece4_piece5_Eh = 2.970 // releve laser
 $rdc_piece4_piece5_FG = 2.290 // releve laser
 $rdc_piece4_piece5_Fh = 2.980 // releve laser
-$rdc_piece4_piece5_GH = 450; // calcul
+$rdc_piece4_piece5_GH = 0.450; // calcul
 $rdc_piece4_piece5_Gh = 2.980 // releve laser
 $rdc_piece4_piece5_HA = 3.980 // releve laser
 $rdc_piece4_piece5_Hh = 2.980 // releve laser
@@ -460,9 +460,9 @@ $etage1_plancher_l = $rdc_plancher_l;
 //todo
 $etage1_grenier1_surface = 00;
 $etage1_grenier1_l = 11.540
-$etage1_grenier1_w = 4590-500;
+$etage1_grenier1_w = 4.590-0.500;
 $etage1_grenier1_h = 5.860 //$etage1_h+$etage2_h;
-$etage1_grenier1_w2 = 100;
+$etage1_grenier1_w2 = 0.100;
 $etage1_grenier1_xh = 5.860 // releve laser
 $etage1_grenier1_ph = 2.930 // releve laser
 $etage1_grenier1_pad = 0.260 // releve laser
@@ -497,12 +497,12 @@ $etage1_chambre1_HA = 4.580 // releve laser
 //todo
 $etage1_grenier2_surface = 48.000000-13.000000;
 $etage1_grenier2_taille = 10.000
-$etage1_grenier2_l = 11.540 /*4800*/ /*2140 3660*/ //$taille;
-$etage1_grenier2_w = $etage1_grenier1_w;//3900+$etage1_grenier1_w-3900-1000; /*1570*/ //$surface/$taille;
-$etage1_grenier2_w2 = 3900+1570+500-$etage1_grenier1_w;
+$etage1_grenier2_l = 11.540 /*4.800*/ /*2.140 3.660*/ //$taille;
+$etage1_grenier2_w = $etage1_grenier1_w;//3.900+$etage1_grenier1_w-3.900-1.000; /*1.570*/ //$surface/$taille;
+$etage1_grenier2_w2 = 3.900+1.570+0.500-$etage1_grenier1_w;
 $etage1_grenier2_h = $etage1_grenier1_h;
-$etage1_grenier2_wb = 1.570
-$etage1_grenier2_lb = $etage1_chambre1_HA+500;
+$etage1_grenier2_wb = 1.570;
+$etage1_grenier2_lb = $etage1_chambre1_HA+0.500;
 //$etage1_grenier2_h = 2.990 // releve laser
 $etage1_grenier2_W = 3.900 // releve laser
 $etage1_grenier2_w1 = 1.570 // releve laser
@@ -568,14 +568,14 @@ $etage1_salledebain_DA = 2.710 // releve laser
 
 //todo
 $etage2_plancher_surface = 9.5000000/2;
-$etage2_plancher_taille = 10000/2+200;
+$etage2_plancher_taille = 10.000/2+0.200;
 $etage2_plancher_w = $etage2_plancher_surface/$etage2_plancher_taille;
-$etage2_plancher_l = $etage2_plancher_taille+700;
+$etage2_plancher_l = $etage2_plancher_taille+0.700;
 
 //todo
 $etage2_combles_surface = 9.5000000/2;
-$etage2_combles_taille = 10000/2+200;
-$etage2_combles_l = $etage2_plancher_l-400;
+$etage2_combles_taille = 10.000/2+0.200;
+$etage2_combles_l = $etage2_plancher_l-0.400;
 $etage2_combles_w = $etage2_combles_surface/$etage2_combles_l;
 //echo($etage2_combles_w,$etage2_combles_l);
 $etage2_combles_h = $etage2_h;
