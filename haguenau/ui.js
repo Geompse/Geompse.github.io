@@ -423,7 +423,7 @@ class UI
         UI.type = '3d';
         init3D(maison_generator());
         UI.type = 'murs_only';
-        initPieces(maison_generator(),font);
+//        initPieces(maison_generator(),font);
     }
 
     static Maison()

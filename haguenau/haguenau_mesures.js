@@ -568,6 +568,32 @@ $etage1_salledebain_BC = 2.710 // releve laser
 $etage1_salledebain_CD = 2.480 // releve laser
 $etage1_salledebain_DA = 2.710 // releve laser
 
+$etage1_salledebain1_beton1_wx = 4.821 // releve laser
+$etage1_salledebain1_beton1_wy = 0.306 // releve laser
+$etage1_salledebain1_beton1_h = 0.243 // releve laser
+
+$etage1_salledebain1_plancherh = 0.170; // estimation
+$etage1_salledebain1_AB = 1.522 // releve laser
+$etage1_salledebain1_BC = 3.318 // releve laser
+$etage1_salledebain1_CD = 4.469 // releve laser
+$etage1_salledebain1_DE = 4.821 // releve laser
+$etage1_salledebain1_EA = 4.469 // releve laser
+
+$etage1_salledebain1_beton2_wx = 0.519 // releve laser
+$etage1_salledebain1_beton2_h = 0.783 // releve laser
+
+$etage1_piece1_AB = 3.318 // releve laser
+$etage1_piece1_BC = 5.847-0.100; // estimation
+$etage1_piece1_CD = 3.318
+$etage1_piece1_DA = 5.847-0.100; // estimation
+
+$etage1_piece1_beton2_wx = 0.519 // releve laser
+$etage1_piece1_beton2_h = 0.783 // releve laser
+
+$etage1_piece1_beton1_wx = 3.318 // releve laser
+$etage1_piece1_beton1_wy = 0.323 // releve laser
+$etage1_piece1_beton1_h = 0.219 // releve laser
+
 //todo
 $etage2_plancher_surface = 9.5000000/2;
 $etage2_plancher_taille = 10.000/2+0.200;
