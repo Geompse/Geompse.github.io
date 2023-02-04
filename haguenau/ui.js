@@ -79,8 +79,12 @@ const RectangleGeometry = function(w,h,...holes)
     return new THREE.ShapeGeometry(shape,100);
 };
 
-const AddGeometryToGroup = function(group,geometry,transparent,noline)
+const colors_sol = {color:0xCCCCCC,emissive:0x444444};
+const colors_mur = {color:0xFFFFFF,emissive:0x888888};
+const colors_plafond = {color:0x156289,emissive:0x072534};
+const AddGeometryToGroup = function(type,group,geometry,transparent,noline)
 {
+    const colors = geometry['color']?geometry['color']:(group['color_'+type]?group['color_'+type]:(type=='mur'?colors_mur:(type=='plafond'?colors_plafond:colors_sol)));
     geometry.piece = group;
 
     if(!noline)
@@ -91,13 +95,16 @@ const AddGeometryToGroup = function(group,geometry,transparent,noline)
 
     if(!transparent)
     {
-        const meshMaterial = new THREE.MeshPhongMaterial({color:0x156289,emissive:0x072534,side:THREE.DoubleSide,flatShading:true});
+        const meshMaterial = new THREE.MeshPhongMaterial({color:colors.color,emissive:colors.emissive,side:THREE.DoubleSide,flatShading:true});
         group.add(new THREE.Mesh(geometry,meshMaterial));
     }
 };
 const AddMurToGroup = function(group,geometry)
 {
-    const meshMaterial = new THREE.MeshPhongMaterial({color:0x156289,emissive:0x072534,side:THREE.DoubleSide,flatShading:true});
+    const colors = geometry['color']?geometry['color']:(group['color_mur']?group['color_mur']:colors_mur);
+    geometry.piece = group;
+
+    const meshMaterial = new THREE.MeshPhongMaterial({color:colors.color,emissive:colors.emissive,side:THREE.DoubleSide,flatShading:true});
     group.murs.add(new THREE.Mesh(geometry,meshMaterial));
 };
 
@@ -421,7 +428,7 @@ class UI
         geometry.rotateX(Math.PI/2);
         geometry.translate(0,p?p:0,0);
         if(UI.type != 'sols_only')
-            AddGeometryToGroup(group,geometry,!voir_murs);
+            AddGeometryToGroup('mur',group,geometry,!voir_murs);
     }
     static MurV(group,geometry,p,x,y)
     {
@@ -431,7 +438,7 @@ class UI
         geometry.rotateZ(Math.PI/2);
         geometry.translate(p?p:0,0,0);
         if(UI.type != 'sols_only')
-            AddGeometryToGroup(group,geometry,!voir_murs);
+            AddGeometryToGroup('mur',group,geometry,!voir_murs);
     }
     static Sol(group,relativecoords,z,x,y,autofillh)
     {
@@ -439,7 +446,7 @@ class UI
         geometry.translate(x?x:0,y?y:0,0);
         geometry.translate(0,0,z?z:0);
         if(UI.type != 'murs_only')
-            AddGeometryToGroup(group,geometry,false,true);
+            AddGeometryToGroup('sol',group,geometry,false,true);
         if(autofillh)
         {
             let x = 0;
@@ -463,7 +470,7 @@ class UI
         geometry.translate(0,0,z?z:0);
         if(UI.type != 'murs_only')
             if(UI.type != 'sols_only')
-                AddGeometryToGroup(group,geometry,!voir_plafond);
+                AddGeometryToGroup('plafond',group,geometry,!voir_plafond);
     }
 
     static SimpleRelativePathGeometry(...relativecoords)

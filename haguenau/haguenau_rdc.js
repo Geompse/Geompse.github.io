@@ -20,6 +20,7 @@ const RDC = function(maison)
     RDC_WC(etage);
     etage.translateZ(mur_e20+$rdj_h+mur_e20);
 };
+
 const RDC_Piece3 = function(etage)
 {
     const piece = UI.Piece(etage,'RCP3 Chambre d\'amis');

@@ -20,6 +20,7 @@ const Etage1 = function(maison)
     Etage1_SalleDeBain2(etage);
     etage.translateZ(mur_e20+$rdj_h+mur_e20+$rdc_h+mur_e20);
 };
+
 const Etage1_Piece2 = function(etage)
 {
     const piece = UI.Piece(etage,'E1P2 Salle de jeux');

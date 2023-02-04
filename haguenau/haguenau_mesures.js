@@ -166,6 +166,7 @@ $rdj_garage_taille2 = 10.000-$rdj_garage_taille1; // delete
 $rdj_garage_w2 = 8.140 //$rdj_garage_surface2/$rdj_garage_taille2+0.900+2.550; // delete
 $rdj_garage_l2 = 6.200 //$rdj_garage_taille2; // delete
 $rdj_garage_h = $rdj_h; // delete
+$rdj_garage_xh = $rdj_h; // delete
 $rdj_garage_Ah = $rdj_h;
 $rdj_garage_Bh = $rdj_h;
 $rdj_garage_Ch = $rdj_h;
