@@ -390,6 +390,12 @@ const initPieces = function(maison_murs_only,font)
     }
 };
 
+const onResize = function(event)
+{
+    document.location.reload();
+};
+window.addEventListener('resize',onResize);
+
 const pointer = new THREE.Vector2(-1000,-1000);
 const onPointerMove = function(event)
 {
@@ -414,7 +420,7 @@ const onPointerMove = function(event)
 
     if(UI.animate)
         requestAnimationFrame(UI.animate);
-}
+};
 
 const node_vue = document.getElementById('vue');
 node_vue.value = localStorage.getItem('vue');

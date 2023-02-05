@@ -7,15 +7,15 @@ import { Etage2 } from './haguenau_etage2.js';
 const Haguenau = function(node_etage)
 {
     const maison = UI.Maison();
-    if(['','RDJ','RDC','E1','E2'].indexOf(node_etage.value) == -1)
-        node_etage.value = '';
-    if(node_etage.value == '' || node_etage.value == 'RDJ')
+    if(['*','RDJ','RDC','E1','E2'].indexOf(node_etage.value) == -1)
+        node_etage.value = '*';
+    if(node_etage.value == '*' || node_etage.value == 'RDJ')
         RDJ(maison);
-    if(node_etage.value == '' || node_etage.value == 'RDC')
+    if(node_etage.value == '*' || node_etage.value == 'RDC')
         RDC(maison);
-    if(node_etage.value == '' || node_etage.value == 'E1')
+    if(node_etage.value == '*' || node_etage.value == 'E1')
         Etage1(maison);
-    if(node_etage.value == '' || node_etage.value == 'E2')
+    if(node_etage.value == '*' || node_etage.value == 'E2')
         Etage2(maison);
     /*if(rotation)
     {

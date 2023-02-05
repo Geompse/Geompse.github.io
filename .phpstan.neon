@@ -6,6 +6,26 @@ parameters:
         - /git/geompse/games
         - /git/geompse/games/dom
         - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/games/dom
+        - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/games/dom
+        - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/games/dom
+        - /git/geompse/haguenau
+        - /git/geompse
+        - /git/geompse/alice
+        - /git/geompse/games
+        - /git/geompse/haguenau
+        - /git/geompse
         - /git/netsoins-dev/dictionnaire
         - /git/netsoins-dev/dictionnaire/definition
         - /git/netsoins-dev/dictionnaire/record
@@ -24,6 +44,7 @@ parameters:
         - /git/netsoins-dev/lib/bcb/vendor/resip
         - /git/netsoins-dev/lib/bcb/vendor/resip/lib
         - /git/netsoins-dev/lib/bcb/vendor/resip/tests
+        - /git/netsoins-dev/lib/calendrier
         - /git/netsoins-dev/lib/class
         - /git/netsoins-dev/lib/coherence
         - /git/netsoins-dev/lib/contact
@@ -37,6 +58,7 @@ parameters:
         - /git/netsoins-dev/lib/data/BCB
         - /git/netsoins-dev/lib/data/FontPaths
         - /git/netsoins-dev/lib/database
+        - /git/netsoins-dev/lib/database/design
         - /git/netsoins-dev/lib/database/maj
         - /git/netsoins-dev/lib/devs
         - /git/netsoins-dev/lib/dictionnaire
@@ -52,13 +74,16 @@ parameters:
         - /git/netsoins-dev/lib/io
         - /git/netsoins-dev/lib/io/ExportComptable
         - /git/netsoins-dev/lib/io/Fixtures
+        - /git/netsoins-dev/lib/io/HttpClient
         - /git/netsoins-dev/lib/io/INS
         - /git/netsoins-dev/lib/io/Posos
+        - /git/netsoins-dev/lib/io/Reprise
         - /git/netsoins-dev/lib/io/TerangaGenerique
         - /git/netsoins-dev/lib/io/TerangaGenerique/dictionnaire
         - /git/netsoins-dev/lib/io/TerangaGenerique/model
         - /git/netsoins-dev/lib/layout
         - /git/netsoins-dev/lib/net
+        - /git/netsoins-dev/lib/NETSmart
         - /git/netsoins-dev/lib/pdf
         - /git/netsoins-dev/lib/planification
         - /git/netsoins-dev/lib/planjs
