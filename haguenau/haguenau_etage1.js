@@ -27,6 +27,7 @@ const Etage1 = function(maison)
 
 const Etage1_Piece2 = function(etage)
 {
+    /* TODO murs */
     const piece = UI.Piece(etage,'E1P2 Salle de jeux');
     piece.image_sol = image_sol_parquet;
 
@@ -70,6 +71,8 @@ const Etage1_Chambre4 = function(etage)
 };
 const Etage1_Pallier = function(etage)
 {
+    /* TODO murs */
+    /* TODO marches */
     const piece = UI.Piece(etage,'E1PA Pallier');
 
     const $marche_y = $rdc_pallier_C_/7;
@@ -112,6 +115,8 @@ const Etage1_Chambre1 = function(etage)
 };
 const Etage1_SalleDeBain1 = function(etage)
 {
+    /* TODO murs */
+    /* TODO betons */
     const piece = UI.Piece(etage,'E1SDB1 Salle de bain parents');
 
     UI.Sol(piece,[
@@ -196,6 +201,8 @@ const Etage1_Chambre2 = function(etage)
 };
 const Etage1_Piece1 = function(etage)
 {
+    /* TODO murs */
+    /* TODO betons */
     const piece = UI.Piece(etage,'E1P1 Dressing parents');
     piece.image_sol = image_sol_parquet;
 
@@ -226,6 +233,7 @@ const Etage1_Piece1 = function(etage)
 };
 const Etage1_Buanderie = function(etage)
 {
+    /* TODO murs */
     const piece = UI.Piece(etage,'E1B Buanderie');
     piece.image_sol = image_sol_parquet;
 

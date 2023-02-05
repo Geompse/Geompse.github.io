@@ -13,6 +13,8 @@ const Etage2 = function(maison)
 
 const Etage2_Combles = function(etage)
 {
+    /* TODO murs */
+    /* TODO betons */
     const piece = UI.Piece(etage,'E2C Combles');
     //piece.image_sol = image_sol_osb;
     UI.Sol(piece,[
@@ -23,6 +25,15 @@ const Etage2_Combles = function(etage)
         [-$etage2_combles_EF,0],
         [0,-$etage2_combles_FA],
     ]);
+    
+    UI.Pente(piece,UI.SimpleRelativePathGeometry([$etage2_combles_FA,0],[-$etage2_combles_FA/2,$etage2_combles_FA/2],[-$etage2_combles_FA/2,-$etage2_combles_FA/2]),0,0,0,(180-52)*Math.PI/180,0,Math.PI/2,0,-3,0);
+    
+    UI.Pente(piece,UI.SimpleRelativePathGeometry([3+$etage2_combles_AB+3,0],[-$etage2_combles_FA/2,$etage2_combles_FA/2],[-3-$etage2_combles_AB-3+$etage2_combles_FA,0],[-$etage2_combles_FA/2,-$etage2_combles_FA/2]),0,0,0,(180-45)*Math.PI/180,0,0,0,-3,$etage2_combles_FA);
+
+    UI.Pente(piece,UI.SimpleRelativePathGeometry([$etage2_combles_FA,0],[-$etage2_combles_FA/2,$etage2_combles_FA/2],[-$etage2_combles_FA/2,-$etage2_combles_FA/2]),0,0,0,52*Math.PI/180,0,Math.PI/2,0,$etage2_combles_AB+3,0);
+    
+    UI.Pente(piece,UI.SimpleRelativePathGeometry([3+$etage2_combles_AB+3,0],[-$etage2_combles_FA/2,$etage2_combles_FA/2],[-3-$etage2_combles_AB-3+$etage2_combles_FA,0],[-$etage2_combles_FA/2,-$etage2_combles_FA/2]),0,0,0,(180-45)*Math.PI/180,0,Math.PI,0,3+$etage2_combles_AB,0);
+    
     piece.translateX(mur_e40+$etage1_grenier1_w);
     piece.translateY(mur_e40+$etage1_grenier1_l/2-$etage2_combles_FA/2);
 };

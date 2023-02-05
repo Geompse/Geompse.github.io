@@ -30,6 +30,7 @@ const RDJ = function(maison)
 
 const RDJ_Terrasse = function(etage)
 {
+    /* TODO marches */
     const piece = UI.Piece(etage,'SST Terrasse');
 
     const $marche_x = 0.250;
@@ -80,6 +81,8 @@ const RDJ_Piece1 = function(etage)
 };
 const RDJ_Pallier = function(etage)
 {
+    /* TODO murs */
+    /* TODO marches */
     const piece = UI.Piece(etage,'SSPA Pallier');
     piece.color_sol = colors_sol_amiante;
 
@@ -119,6 +122,7 @@ const RDJ_Pallier = function(etage)
 };
 const RDJ_Cave = function(etage)
 {
+    /* TODO murs */
     const piece = UI.Piece(etage,'SSCA Cave');
     UI.Sol(piece,[
         [$rdj_cave_AB,0],
@@ -179,7 +183,7 @@ const RDJ_Degagement = function(etage)
         [0,-$rdj_degagement_QR],
         [$rdj_degagement_RS,0],
         [0,-$rdj_degagement_SA],
-    ]);
+    ],0,0,0,$rdj_degagement_xh);
     piece.translateX(mur_e40+$rdj_cuve_AB+mur_e20+$rdj_chaufferie_AB+mur_e20);
     piece.translateY(mur_e40+$rdj_buanderie_BC+mur_e20);
 };
@@ -241,6 +245,7 @@ const RDJ_Buanderie = function(etage)
 };
 const RDJ_Tech = function(etage)
 {
+    /* TODO murs */
     const piece = UI.Piece(etage,'SSTE Local technique');
     piece.color_sol = colors_sol_technique;
     UI.Sol(piece,[
@@ -254,6 +259,8 @@ const RDJ_Tech = function(etage)
 };
 const RDJ_Entree = function(etage)
 {
+    /* TODO murs */
+    /* TODO marches */
     const piece = UI.Piece(etage,'SSE Entr\xE9e');
     piece.color_sol = colors_sol_amiante;
 

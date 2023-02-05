@@ -34,6 +34,7 @@ const RDC = function(maison)
 
 const RDC_Terrasse = function(etage)
 {
+    /* TODO marches */
     const piece = UI.Piece(etage,'RCT Terrasse');
 
     const $marche_x = 0.250;
@@ -98,6 +99,8 @@ const RDC_Cuisine = function(etage)
 };
 const RDC_Pallier = function(etage)
 {
+    /* TODO murs */
+    /* TODO marches */
     const piece = UI.Piece(etage,'RCPA Pallier');
     piece.color_sol = colors_sol_marbre1;
 
@@ -236,7 +239,7 @@ const RDC_DegagementHall = function(etage)
         [0,$rdc_degagement_hall_VW],
         [$rdc_degagement_hall_WX,0],
         [0,-$rdc_degagement_hall_XA],
-    ]);
+    ],0,0,0,$rdc_couloir_xh);
     piece.translateX(mur_e40+$rdc_salledeau2_AB+mur_e20+$rdc_piece1_AB+mur_e20+$rdc_salledeau1_AB+mur_e20+$rdc_wc_AB+mur_e20);
     piece.translateY(mur_e40+$rdc_entree_BC+$rdc_entree_CD+$rdc_entree_DE+mur_e20);
 };
@@ -285,6 +288,8 @@ const RDC_Piece2 = function(etage)
 };
 const RDC_Entree = function(etage)
 {
+    /* TODO murs */
+    /* TODO marches */
     const piece = UI.Piece(etage,'RCE Entr\xE9e');
     piece.color_sol = colors_sol_marbre1;
 

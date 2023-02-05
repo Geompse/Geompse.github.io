@@ -3,8 +3,9 @@ import { FontLoader } from './FontLoader.js';
 import { TextGeometry } from './TextGeometry.js';
 import { ArcballControls } from './ArcballControls.js';
 
-window.voir_plafond = false;
 window.voir_murs = false;
+window.voir_pentes = true;
+window.voir_plafonds = false;
 
 const displayLength = function(length)
 {
@@ -488,25 +489,6 @@ class UI
         return piece;
     }
 
-    static MurH(group,geometry,p,x,y)
-    {
-        AddMurToGroup(group,geometry.clone());
-        geometry.translate(x?x:0,y?y:0,0);
-        geometry.rotateX(Math.PI/2);
-        geometry.translate(0,p?p:0,0);
-        if(UI.type != 'sols_only')
-            AddGeometryToGroup('mur',group,geometry,!voir_murs);
-    }
-    static MurV(group,geometry,p,x,y)
-    {
-        AddMurToGroup(group,geometry.clone());
-        geometry.translate(x?x:0,y?y:0,0);
-        geometry.rotateX(Math.PI/2);
-        geometry.rotateZ(Math.PI/2);
-        geometry.translate(p?p:0,0,0);
-        if(UI.type != 'sols_only')
-            AddGeometryToGroup('mur',group,geometry,!voir_murs);
-    }
     static Sol(group,relativecoords,z,x,y,autofillh)
     {
         const geometry = SimpleRelativePathGeometry(...relativecoords);
@@ -531,13 +513,43 @@ class UI
             UI.Plafond(group,geometry.clone(),autofillh);
         }
     }
+    static MurH(group,geometry,p,x,y)
+    {
+        AddMurToGroup(group,geometry.clone());
+        geometry.translate(x?x:0,y?y:0,0);
+        geometry.rotateX(Math.PI/2);
+        geometry.translate(0,p?p:0,0);
+        if(UI.type != 'sols_only')
+            AddGeometryToGroup('mur',group,geometry,!voir_murs);
+    }
+    static MurV(group,geometry,p,x,y)
+    {
+        AddMurToGroup(group,geometry.clone());
+        geometry.translate(x?x:0,y?y:0,0);
+        geometry.rotateX(Math.PI/2);
+        geometry.rotateZ(Math.PI/2);
+        geometry.translate(p?p:0,0,0);
+        if(UI.type != 'sols_only')
+            AddGeometryToGroup('mur',group,geometry,!voir_murs);
+    }
+    static Pente(group,geometry,p1,x1,y1,rx,ry,rz,p2,x2,y2)
+    {
+        AddMurToGroup(group,geometry.clone());
+        geometry.translate(x1?x1:0,y1?y1:0,p1?p1:0);
+        geometry.rotateX(rx?rx:0);
+        geometry.rotateY(ry?ry:0);
+        geometry.rotateZ(rz?rz:0);
+        geometry.translate(x2?x2:0,y2?y2:0,p2?p2:0);
+        if(UI.type != 'sols_only')
+            AddGeometryToGroup('pente',group,geometry,!voir_pentes,true);
+    }
     static Plafond(group,geometry,z,x,y)
     {
         geometry.translate(x?x:0,y?y:0,0);
         geometry.translate(0,0,z?z:0);
         if(UI.type != 'murs_only')
             if(UI.type != 'sols_only')
-                AddGeometryToGroup('plafond',group,geometry,!voir_plafond);
+                AddGeometryToGroup('plafond',group,geometry,!voir_plafonds);
     }
 
     static SimpleRelativePathGeometry(...relativecoords)
