@@ -3,8 +3,9 @@ import { FontLoader } from './FontLoader.js';
 import { TextGeometry } from './TextGeometry.js';
 import { ArcballControls } from './ArcballControls.js';
 
+window.voir_sols = true;
 window.voir_murs = false;
-window.voir_pentes = true;
+window.voir_pentes = false;
 window.voir_plafonds = false;
 
 const displayLength = function(length)
@@ -89,24 +90,33 @@ const AddGeometryToGroup = function(type,group,geometry,transparent,noline)
     const colors = geometry['color']?geometry['color']:(group['color_'+type]?group['color_'+type]:(type=='mur'?colors_mur:(type=='plafond'?colors_plafond:colors_sol)));
     geometry.piece = group;
 
-    if(group.image_sol && type == 'sol')
-    {
-        const texture = TexturePng(group.image_sol);
-        const meshBasicMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF,map:texture,transparent:true,opacity:1});
-        group.add(new THREE.Mesh(geometry,meshBasicMaterial));
-        return;
-    }
-
     if(!noline)
     {
-        const lineMaterial = new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0.5});
-        group.add(new THREE.LineSegments(geometry,lineMaterial));
+        if(type == 'pente')
+        {
+            const lineMaterial = new THREE.MeshPhongMaterial({color:colors.color,emissive:colors.emissive,side:THREE.DoubleSide,flatShading:true,wireframe:true});
+            group.add(new THREE.LineSegments(geometry,lineMaterial));
+        }
+        else
+        {
+            const lineMaterial = new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0.5});
+            group.add(new THREE.LineSegments(geometry,lineMaterial));
+        }
     }
 
     if(!transparent)
     {
-        const meshMaterial = new THREE.MeshPhongMaterial({color:colors.color,emissive:colors.emissive,side:THREE.DoubleSide,flatShading:true});
-        group.add(new THREE.Mesh(geometry,meshMaterial));
+        if(group.image_sol && type == 'sol')
+        {
+            const texture = TexturePng(group.image_sol);
+            const meshBasicMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF,map:texture,transparent:true,opacity:1});
+            group.add(new THREE.Mesh(geometry,meshBasicMaterial));
+        }
+        else
+        {
+            const meshMaterial = new THREE.MeshPhongMaterial({color:colors.color,emissive:colors.emissive,side:THREE.DoubleSide,flatShading:true});
+            group.add(new THREE.Mesh(geometry,meshMaterial));
+        }
     }
 };
 const AddMurToGroup = function(group,geometry)
@@ -249,7 +259,7 @@ const initDessus_animate = function(scene,camera,raycaster,renderer,span)
     span.innerHTML = textes.join('<br />');
     renderer.render(scene,camera);
 };
-const init3D = function(maison_3d)
+const init3D = function(maison_3d,perspective)
 {
     const canvas = document.createElement('canvas');
     canvas.style.display = 'inline-block';
@@ -260,7 +270,15 @@ const init3D = function(maison_3d)
     const vh = document.body.clientHeight;
     const vw = document.body.clientWidth;
 
-    const camera = new THREE.PerspectiveCamera(75,vw/vh,0.1,1000);
+    let camera = null;
+    if(perspective)
+        camera = new THREE.PerspectiveCamera(75,vw/vh,0.1,1000);
+    else
+    {
+        const w = 20;
+        const h = w/vw*vh;
+        camera = new THREE.OrthographicCamera(-w,w,h,-h,0.1,1000);
+    }
 
     const renderer = new THREE.WebGLRenderer({antialias:true,canvas:canvas});
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -281,10 +299,12 @@ const init3D = function(maison_3d)
 
     scene.add(maison_3d.clone());
 
-    scene.rotation.x = -Math.PI/4;
-    scene.rotation.y = 0;
-    scene.rotation.z = Math.PI/8;
-
+    if(perspective)
+    {
+        scene.rotation.x = -Math.PI/4;
+        scene.rotation.y = 0;
+        scene.rotation.z = Math.PI/8;
+    }
     scene.translateZ(5.00);
     camera.position.z = 20.000;
     
@@ -441,6 +461,42 @@ const changeEtage = function(event)
 };
 node_etage.addEventListener('change',changeEtage);
 
+const node_sols = document.getElementById('sols');
+node_sols.value = localStorage.getItem('sols');
+const changeSols = function(event)
+{
+    localStorage.setItem('sols',node_sols.value);
+    document.location.reload();
+};
+node_sols.addEventListener('change',changeSols);
+
+const node_murs = document.getElementById('murs');
+node_murs.value = localStorage.getItem('murs');
+const changeMurs = function(event)
+{
+    localStorage.setItem('murs',node_murs.value);
+    document.location.reload();
+};
+node_murs.addEventListener('change',changeMurs);
+
+const node_pentes = document.getElementById('pentes');
+node_pentes.value = localStorage.getItem('pentes');
+const changePentes = function(event)
+{
+    localStorage.setItem('pentes',node_pentes.value);
+    document.location.reload();
+};
+node_pentes.addEventListener('change',changePentes);
+
+const node_plafonds = document.getElementById('plafonds');
+node_plafonds.value = localStorage.getItem('plafonds');
+const changePlafonds = function(event)
+{
+    localStorage.setItem('plafonds',node_plafonds.value);
+    document.location.reload();
+};
+node_plafonds.addEventListener('change',changePlafonds);
+
 class UI
 {
     static run(maison_generator)
@@ -450,6 +506,22 @@ class UI
     }
     static loader_callback(maison_generator,font)
     {
+        if(node_sols.value == '')
+            node_sols.value = 'visible';
+        window.voir_sols = node_sols.value == 'visible';
+        
+        if(node_murs.value == '')
+            node_murs.value = 'transparent';
+        window.voir_murs = node_murs.value == 'visible';
+        
+        if(node_pentes.value == '')
+            node_pentes.value = 'transparent';
+        window.voir_pentes = node_pentes.value == 'visible';
+        
+        if(node_plafonds.value == '')
+            node_plafonds.value = 'transparent';
+        window.voir_plafonds = node_plafonds.value == 'visible';
+
         if(node_vue.value == 'sols')
         {
             UI.type = 'sols_only';
@@ -460,11 +532,16 @@ class UI
             UI.type = 'murs_only';
             initPieces(maison_generator(node_etage),font);
         }
+        else if(node_vue.value == '3d-ortho')
+        {
+            UI.type = '3d';
+            init3D(maison_generator(node_etage),false);
+        }
         else
         {
-            node_vue.value = '3d';
+            node_vue.value = '3d-perspective';
             UI.type = '3d';
-            init3D(maison_generator(node_etage));
+            init3D(maison_generator(node_etage),true);
         }
     }
 
@@ -495,7 +572,7 @@ class UI
         geometry.translate(x?x:0,y?y:0,0);
         geometry.translate(0,0,z?z:0);
         if(UI.type != 'murs_only')
-            AddGeometryToGroup('sol',group,geometry,false,true);
+            AddGeometryToGroup('sol',group,geometry,!voir_sols,true);
         if(autofillh)
         {
             let x = 0;
@@ -541,7 +618,7 @@ class UI
         geometry.rotateZ(rz?rz:0);
         geometry.translate(x2?x2:0,y2?y2:0,p2?p2:0);
         if(UI.type != 'sols_only')
-            AddGeometryToGroup('pente',group,geometry,!voir_pentes,true);
+            AddGeometryToGroup('pente',group,geometry,!voir_pentes);
     }
     static Plafond(group,geometry,z,x,y)
     {

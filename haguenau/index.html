@@ -5,9 +5,10 @@
     <body style="margin:0px;padding:0px;overflow:scroll;background:#444;">
         <form style="position:fixed;bottom:0px;left:0px;right:0px;text-align:center;">
             <select id="vue" style="height:38px;">
-                <option value="3d">3D</option>
+                <option value="3d-perspective">3D perspective</option>
+                <option value="3d-ortho">3D cartographique</option>
                 <option value="sols">2D a&eacute;rienne</option>
-                <option value="murs">2D murs</option>
+                <option value="murs">2D murs et pentes</option>
             </select>
             <select id="etage" style="height:38px;">
                 <option value="E2">&Eacute;tage 2 (combles)</option>
@@ -15,6 +16,22 @@
                 <option value="RDC">Rez-de-chauss&eacute;e</option>
                 <option value="RDJ">Rez-de-jardin</option>
                 <option value="*">Tous les &eacute;tages</option>
+            </select>
+            <select id="sols" style="height:38px;">
+                <option value="visible">Sols : visibles</option>
+                <option value="transparent">Sols : transparents</option>
+            </select>
+            <select id="murs" style="height:38px;">
+                <option value="visible">Murs : visibles</option>
+                <option value="transparent">Murs : transparents</option>
+            </select>
+            <select id="pentes" style="height:38px;">
+                <option value="visible">Pentes : visibles</option>
+                <option value="transparent">Pentes : transparentes</option>
+            </select>
+            <select id="plafonds" style="height:38px;">
+                <option value="visible">Plafonds : visibles</option>
+                <option value="transparent">Plafonds : transparents</option>
             </select>
         </form>
         <script src="./haguenau_mesures.js"></script>
